@@ -577,3 +577,126 @@ footer {
 .footer-bottom-bar p {
     margin: 0;
 }
+/* --- PÁGINA SOBRE --- */
+.sobre-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+    margin-top: 40px;
+}
+.sobre-coluna-imagem,
+.sobre-coluna-texto {
+    flex: 1;
+    min-width: 320px;
+}
+.sobre-coluna-imagem img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.sobre-coluna-texto h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.sobre-coluna-texto p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 20px;
+}
+/* --- PÁGINA DE ARTISTAS (NOVO DESIGN) --- */
+
+.artistas-grid {
+    display: grid;
+    /* Usaremos a mesma grade responsiva de 3 colunas que fizemos para as obras */
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+@media (min-width: 600px) {
+    .artistas-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1024px) {
+    .artistas-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Estilo do novo card de artista */
+.artista-card-novo {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px; /* Bordas arredondadas para um visual mais suave */
+    overflow: hidden; /* Garante que a imagem não "vaze" das bordas arredondadas */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.artista-card-novo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.artista-card-novo .artista-card-imagem-link img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.artista-card-novo .artista-card-info {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz esta área crescer para preencher o espaço */
+}
+
+.artista-card-info h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+}
+
+.artista-card-info h3 a {
+    text-decoration: none;
+    color: #333;
+}
+
+.artista-card-info .artista-card-bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    flex-grow: 1; /* Garante que o texto ocupe o espaço e alinhe o botão no final */
+
+    /* truque para limitar o texto a 4 linhas e não quebrar o layout */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Número de linhas */
+    -webkit-box-orient: vertical;
+}
+
+.artista-card-info .btn-ver-obras {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px; /* Espaço entre o texto e o botão */
+    transition: background-color 0.2s ease;
+    align-self: flex-start; /* Alinha o botão à esquerda */
+}
+
+.artista-card-info .btn-ver-obras:hover {
+    background-color: #0056b3;
+}
