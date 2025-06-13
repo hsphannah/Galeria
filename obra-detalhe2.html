@@ -3,57 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título da Obra - Nome do Artista</title>
+    <title>Nome da Obra - Sua Galeria</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-        <div class="container">
-            <a href="catalogo.html" class="logo-galeria">Sua Galeria</a>
-            <nav>
-                </nav>
+        <div class="header-container">
+            <div class="logo-header"><a href="index.html">Sua Galeria</a></div>
+            <div class="search-bar"><input type="text" placeholder="Buscar..."><button>Buscar</button></div>
+            <div class="user-actions"><a href="login.html" class="action-link">Login</a><a href="carrinho.html" class="action-link">Carrinho (0)</a></div>
         </div>
     </header>
 
-    <main>
+    <main class="pagina-detalhe-obra">
         <div class="container">
-            <a href="catalogo.html" class="voltar-link">&larr; Voltar para o Catálogo</a>
-
-            <article class="obra-detalhe-container">
-                
-                <div class="coluna-imagem">
-                    <img src="https://via.placeholder.com/800x800.png?text=Sua+Obra" alt="Título da Obra">
-                </div>
-
-                <div class="coluna-info">
-                    <p class="artista-nome-detalhe">Nome do Artista</p>
-                    <h1 class="obra-titulo-detalhe">Título da Obra</h1>
-                    
-                    <ul class="lista-detalhes">
-                        <li>Acrílica sobre tela</li>
-                        <li>2024</li>
-                        <li>70 x 50 cm</li>
-                    </ul>
-
-                    <div class="obra-descricao">
-                        <p>Aqui vai um parágrafo descritivo sobre a obra. Pode falar sobre a inspiração do artista, o contexto da peça, a técnica utilizada ou o que ela representa. É um espaço para criar uma conexão mais profunda entre o espectador e a arte.</p>
-                        <p>Um segundo parágrafo pode continuar a narrativa, se necessário.</p>
+            <div class="detalhe-container">
+                <div class="coluna-imagem-detalhe">
+                    <img src="https://via.placeholder.com/600x750.png?text=Obra+em+Destaque" alt="Nome da Obra" id="imagem-principal">
+                    <div class="galeria-thumbnails">
+                        <img src="https://via.placeholder.com/100x100.png?text=Angulo+1" alt="Angulo 1 da obra" class="thumb active">
+                        <img src="https://via.placeholder.com/100x100.png?text=Angulo+2" alt="Angulo 2 da obra" class="thumb">
+                        <img src="https://via.placeholder.com/100x100.png?text=Detalhe" alt="Detalhe da obra" class="thumb">
                     </div>
-
-                    <a href="#contato" class="btn-interesse">Tenho Interesse</a>
                 </div>
 
-            </article>
+                <div class="coluna-info-detalhe">
+                    <p class="detalhe-artista"><a href="#">Nome do Artista</a></p>
+                    <h1 class="detalhe-titulo">Formas Concretas I</h1>
+                    <p class="detalhe-preco">R$ 1.200,00</p>
 
+                    <div class="detalhe-descricao">
+                        <p>Descrição detalhada da obra. Pode falar sobre a inspiração, a técnica e o que a peça representa. Um texto que conecta o cliente com a arte.</p>
+                        <ul>
+                            <li>Técnica: Escultura em Aço</li>
+                            <li>Dimensões: 40cm x 70cm x 20cm</li>
+                            <li>Ano: 2024</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn-comprar">Comprar</button>
+
+                    <div class="frete-calculo">
+                        <h3>Calcular Frete</h3>
+                        <div class="frete-form">
+                            <input type="text" placeholder="Digite seu CEP">
+                            <button>Calcular</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-
     <footer>
-        <div class="container">
-            <p>© 2025 Sua Galeria. Todos os direitos reservados.</p>
+    <div class="footer-container">
+        <div class="footer-coluna">
+            <h4>Sua Galeria</h4>
+            <p>Conectando arte e pessoas através de uma curadoria cuidadosa de obras que dialogam com o presente.</p>
         </div>
-    </footer>
+
+        <div class="footer-coluna">
+            <h4>Navegue</h4>
+            <ul>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="artistas.html">Artistas</a></li>
+                <li><a href="sobre.html">Sobre Nós</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Contato</h4>
+            <p>
+                Sua Rua, 123, Bairro<br>
+                Cidade, UF - 12345-678<br>
+                <a href="mailto:contato@suagaleria.com.br">contato@suagaleria.com.br</a><br>
+                (48) 99999-9999
+            </p>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Siga-nos</h4>
+            <div class="footer-sociais">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Pinterest</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p>© 2025 Sua Galeria - Todos os direitos reservados.</p>
+    </div>
+</footer>
 
 </body>
 </html>

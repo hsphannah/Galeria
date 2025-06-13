@@ -1,1091 +1,245 @@
-/* --- ESTILOS GERAIS E TIPOGRAFIA --- */
+/* --- ESTILOS GERAIS --- */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #ffffff;
-    color: #1c1c1c;
+    background-color: #fdfdfd;
 }
 
-.container {
-    width: 95%;
-    max-width: 1600px; /* Um pouco mais largo para galerias */
-    margin: 0 auto;
-}
+/* --- LAYOUT PRINCIPAL DA LOJA --- */
 
-.titulo-pagina {
-    text-align: center;
-    font-weight: 500;
-    font-size: 2rem;
-    margin: 40px 0;
-}
-
-/* --- Estilo Principal do Header (usando CSS Grid) --- */
-header .container {
+/* Usaremos CSS Grid para criar o layout de 2 colunas */
+.loja-container {
     display: grid;
-    /* Cria 3 colunas: 1fr (flexível), auto (tamanho do conteúdo), 1fr (flexível) */
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 20px; /* Espaçamento entre as colunas */
+    /* A primeira coluna (menu) tem 250px, a segunda (conteúdo) ocupa o resto */
+    grid-template-columns: 250px 1fr;
+    gap: 30px; /* Espaço entre o menu e o conteúdo */
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto; /* Centraliza o container na página */
 }
 
-.logo-galeria {
-    grid-column: 2 / 3; /* Coloca o logo na segunda coluna (a do meio) */
-    justify-self: center; /* Garante a centralização dentro da coluna */
-    /* Estilos que já tínhamos */
-    font-weight: 600;
-    font-size: 1.5rem;
+/* --- MENU LATERAL (FILTROS) --- */
+.menu-lateral {
+    padding-right: 20px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.menu-lateral h3 {
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.menu-lateral ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 40px 0;
+}
+
+.menu-lateral li {
+    margin-bottom: 10px;
+}
+
+.menu-lateral a {
     text-decoration: none;
-    color: var(--dark-gray);
+    color: #555;
+    font-size: 1rem;
+    transition: color 0.2s ease;
 }
 
-.menu-principal {
-    grid-column: 3 / 4; /* Coloca o menu na terceira coluna (direita) */
-    justify-self: end; /* Alinha o menu todo à direita da sua coluna */
+.menu-lateral a:hover {
+    color: #007bff; 
 }
 
-.hamburger-btn {
-    grid-column: 3 / 4; /* Coloca o botão na mesma coluna do menu */
-    justify-self: end; /* Também alinhado à direita */
-    /* O resto dos estilos do botão continuam os mesmos */
+/* --- ÁREA DE CONTEÚDO PRINCIPAL --- */
+.conteudo-principal h1 {
+    font-size: 2rem;
+    margin-top: 0;
 }
 
-/* --- Responsividade do Header Centralizado --- */
-@media (max-width: 768px) {
-    /* No mobile, voltamos para o Flexbox que é mais simples para 2 itens */
-    header .container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    /* No layout flex, não precisamos mais definir as colunas do grid */
-    .logo-galeria,
-    .menu-principal,
-    .hamburger-btn {
-        grid-column: auto;
-        justify-self: auto;
-    }
-}
-
-/* --- CARD INDIVIDUAL DA OBRA (COM EFEITO HOVER) --- */
-
-.obra-card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    overflow: hidden; /* Garante que nada saia dos limites do card */
-}
-
-/* O contêiner da imagem agora é o nosso ponto de referência */
-.obra-imagem-container {
-    position: relative; /* Essencial para o efeito de sobreposição */
-}
-
-.obra-imagem-container img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    display: block;
-    background-color: #f5f5f5;
-    transition: transform 0.4s ease; /* Adiciona um efeito de zoom sutil na imagem */
-}
-
-/* A MÁGICA ACONTECE AQUI */
-
-/* 1. Estilo da sobreposição de informações (estado inicial: escondido) */
-.obra-info {
-    position: absolute; /* Coloca as informações SOBRE a imagem */
+//* --- HEADER PROFISSIONAL --- */
+header {
+    background-color: #ffffff;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky; 
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    z-index: 1000;
+}
 
-    /* Fundo escuro semitransparente */
-    background-color: rgba(15, 15, 15, 0.7);
-    color: #ffffff; /* Texto branco para contraste */
-
-    /* Centraliza o texto na vertical e horizontal */
+.header-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    padding: 20px;
-
-    /* Começa invisível e com uma transição suave */
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-/* 2. Efeito ao passar o mouse */
-.obra-card:hover .obra-info {
-    opacity: 1; /* A sobreposição se torna visível */
-}
-
-.obra-card:hover .obra-imagem-container img {
-    transform: scale(1.05); /* Efeito de zoom sutil na imagem */
-}
-
-
-/* Estilos do texto dentro da sobreposição */
-.obra-info .obra-artista {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin: 0 0 5px 0;
-}
-
-.obra-info .obra-titulo {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0 0 15px 0;
-}
-
-.obra-info .obra-detalhes, 
-.obra-info .obra-dimensoes {
-    font-size: 0.9rem;
-    color: #e0e0e0; /* Um cinza claro para detalhes secundários */
-    margin: 0;
-}
-
-/* --- RODAPÉ SIMPLES --- */
-footer {
-    text-align: center;
-    padding: 40px 0;
-    margin-top: 60px;
-    border-top: 1px solid #eaeaea;
-    font-size: 0.9rem;
-    color: #666;
-}
-/* --- PÁGINA DE DETALHES DA OBRA --- */
-
-.voltar-link {
-    display: inline-block;
-    margin-bottom: 30px;
-    color: #666;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.voltar-link:hover {
-    color: #1c1c1c;
-}
-
-.obra-detalhe-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
-    gap: 50px; /* Espaço entre a imagem e as informações */
-}
-
-/* Coluna da Esquerda (Imagem) */
-.coluna-imagem {
-    flex: 1; /* Ocupa o espaço disponível */
-    min-width: 300px; /* Largura mínima antes de quebrar a linha */
-}
-
-.coluna-imagem img {
-    width: 100%;
-    height: auto;
-    display: block;
-    background-color: #f5f5f5;
-}
-
-/* Coluna da Direita (Informações) */
-.coluna-info {
-    flex: 1;
-    min-width: 300px;
-}
-
-.artista-nome-detalhe {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 10px 0;
-}
-
-.obra-titulo-detalhe {
-    font-size: 2.5rem;
-    font-weight: 500;
-    margin: 0 0 20px 0;
-    line-height: 1.2;
-}
-
-.lista-detalhes {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 30px 0;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 20px;
-}
-
-.lista-detalhes li {
-    margin-bottom: 8px;
-    color: #666;
-}
-
-.obra-descricao {
-    line-height: 1.7;
-    margin-bottom: 40px;
-}
-
-.btn-interesse {
-    display: inline-block;
-    background-color: #1c1c1c;
-    color: #ffffff;
-    padding: 15px 35px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.btn-interesse:hover {
-    background-color: #555;
-}
-
-/* --- Responsividade para a página de detalhes --- */
-@media (max-width: 768px) {
-    .obra-detalhe-container {
-        flex-direction: column; /* Empilha as colunas em telas pequenas */
-    }
-
-    .obra-titulo-detalhe {
-        font-size: 2rem;
-    }
-}
-/* --- MENU DE NAVEGAÇÃO (HEADER) --- */
-
-/* Esconde o botão hambúrguer em telas grandes */
-.hamburger-btn {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1001;
-}
-.hamburger-btn .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: #1c1c1c;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Estilo do menu para Desktop */
-.menu-principal ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    gap: 30px; /* Espaço entre os links */
-}
-
-.menu-principal a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    font-size: 1rem;
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent; /* Borda transparente para efeito no hover */
-    transition: border-color 0.3s ease;
-}
-
-.menu-principal a:hover {
-    border-bottom-color: #1c1c1c; /* Borda aparece no hover */
-}
-
-
-/* --- RESPONSIVIDADE DO MENU (LÓGICA DO HAMBÚRGUER) --- */
-@media (max-width: 768px) {
-    /* Esconde o menu de desktop */
-    .menu-principal {
-        display: none; 
-        position: fixed;
-        top: 0;
-        right: -100%; /* Começa fora da tela */
-        width: 70%;
-        max-width: 300px;
-        height: 100vh;
-        background-color: #ffffff;
-        padding-top: 80px;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        transition: right 0.4s ease-in-out;
-    }
-
-    /* Mostra o menu quando a classe 'active' for adicionada */
-    .menu-principal.active {
-        display: block;
-        right: 0;
-    }
-
-    /* Ajusta a lista de links para o formato vertical */
-    .menu-principal ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        gap: 0;
-    }
-
-    .menu-principal li {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .menu-principal a {
-        display: block;
-        padding: 20px;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    .menu-principal a:hover {
-        background-color: #f5f5f5;
-        border-bottom-color: #f0f0f0;
-    }
-
-    /* Mostra o botão hambúrguer */
-    .hamburger-btn {
-        display: block;
-    }
-}
-/* --- PÁGINA DE ARTISTAS --- */
-
-.artistas-grid {
-    display: grid;
-    /* Usa o mesmo padrão de colunas responsivas do catálogo */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-}
-
-.artista-card {
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.artista-card:hover {
-    transform: translateY(-5px);
-}
-
-.artista-imagem-container {
-    margin-bottom: 20px;
-}
-
-.artista-imagem-container img {
-    width: 200px; /* Tamanho da imagem do artista */
-    height: 200px;
-    border-radius: 50%; /* Deixa a imagem redonda, um toque elegante */
-    object-fit: cover; /* Garante que a foto preencha o círculo sem distorcer */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 3px solid white;
-}
-
-.artista-nome-card {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0 0 5px 0;
-}
-
-.artista-local {
-    color: #666;
-    font-size: 0.9rem;
-}
-/* --- PÁGINA DE DETALHES DO ARTISTA --- */
-
-/* Seção de Destaque (Hero) */
-.artista-hero {
-    background-color: #f5f5f5; /* Um fundo suave para destacar */
-    padding: 60px 0;
-}
-
-.artista-hero-content {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
-.artista-hero-imagem img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.artista-hero-texto h1 {
-    font-size: 3rem;
-    margin: 0 0 10px 0;
-}
-
-.artista-hero-local {
-    font-size: 1.1rem;
-    color: #666;
-    margin: 0 0 20px 0;
-}
-
-.artista-hero-bio {
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 600px; /* Limita a largura do texto para melhor leitura */
-}
-
-/* Título para a seção de obras */
-.titulo-secao {
-    font-size: 2rem;
-    font-weight: 500;
-    text-align: center;
-    margin: 60px 0 40px 0;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 20px;
-}
-
-/* Responsividade para a seção Hero */
-@media (max-width: 768px) {
-    .artista-hero-content {
-        flex-direction: column; /* Empilha a imagem e o texto */
-        text-align: center;
-    }
-
-    .artista-hero-texto h1 {
-        font-size: 2.2rem;
-    }
-}
-/* --- PÁGINA SOBRE --- */
-
-.sobre-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center; /* Alinha verticalmente as colunas */
-    gap: 50px;
-    margin-top: 40px;
-}
-
-.sobre-coluna-imagem,
-.sobre-coluna-texto {
-    flex: 1; /* Faz com que ambas as colunas tentem ocupar o mesmo espaço */
-    min-width: 320px; /* Largura mínima antes de quebrar a linha */
-}
-
-.sobre-coluna-imagem img {
-    width: 100%;
-    height: auto;
-    display: block;
-    background-color: #f5f5f5;
-}
-
-.sobre-coluna-texto h2 {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.sobre-coluna-texto p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Ajuste de responsividade para a página Sobre */
-@media (max-width: 768px) {
-    .sobre-container {
-        /* A coluna de imagem já quebra a linha naturalmente por causa do flex-wrap */
-        gap: 30px; /* Diminui o espaço na vertical */
-    }
-
-    .sobre-coluna-texto h2 {
-        font-size: 1.8rem;
-    }
-}
-/* --- PÁGINA CONTATO --- */
-
-.contato-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin-top: 40px;
-}
-
-.contato-coluna-info,
-.contato-coluna-form {
-    flex: 1;
-    min-width: 320px;
-}
-
-.contato-coluna-info h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-top: 0;
-}
-
-.contato-coluna-info p {
-    line-height: 1.7;
-    color: #333;
-}
-
-.lista-contato {
-    list-style: none;
-    padding: 0;
-    margin: 30px 0;
-}
-
-.lista-contato li {
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.lista-contato strong {
-    color: #1c1c1c;
-}
-
-/* Formulário */
-.form-grupo {
-    margin-bottom: 20px;
-}
-
-.form-grupo label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-grupo input,
-.form-grupo textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
-}
-
-.form-grupo textarea {
-    resize: vertical;
-}/* --- ESTILOS GERAIS E TIPOGRAFIA --- */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    background-color: #ffffff;
-    color: #1c1c1c;
-}
-
-.container {
-    width: 95%;
-    max-width: 1600px; /* Um pouco mais largo para galerias */
+    width: 90%;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
-.titulo-pagina {
-    text-align: center;
+.logo-header a {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.search-bar {
+    display: flex;
+    width: 40%;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.user-actions .action-link {
+    text-decoration: none;
+    color: #555;
     font-weight: 500;
-    font-size: 2rem;
-    margin: 40px 0;
 }
 
-/* ======================================= */
-/* NOVA REGRA PARA A GRADE DA GALERIA      */
-/* ======================================= */
-.galeria-grid {
+.user-actions .action-link:hover {
+    color: #007bff;
+}
+
+/* Responsividade do Header */
+@media (max-width: 900px) {
+    .search-bar {
+        display: none; 
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        /* No mobile, voltamos a ter só o logo de um lado e as ações do outro */
+    }
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    /* Em telas menores, o layout de grid é desfeito */
+    .loja-container {
+        display: block; /* O menu e o conteúdo ficarão um sobre o outro */
+    }
+
+    .menu-lateral {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+}
+/* --- GRADE DE OBRAS E CARDS --- */
+
+.grade-obras {
     display: grid;
-    gap: 40px; /* Mantém o espaçamento que já tínhamos */
+    gap: 30px;
 
-    /* MOBILE-FIRST: Por padrão, o layout terá UMA coluna. */
-    grid-template-columns: 1fr; 
+    /* Mobile-first: 1 coluna por padrão */
+    grid-template-columns: 1fr;
 }
 
-/* Para telas maiores (TABLETS), usamos DUAS colunas */
-@media (min-width: 600px) {
-    .galeria-grid {
+/* Tablets e telas médias: 2 colunas */
+@media (min-width: 768px) {
+    .grade-obras {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Para telas bem maiores (DESKTOPS), usamos as TRÊS colunas que você quer */
+/* Desktops e telas grandes: 3 colunas */
 @media (min-width: 1024px) {
-    .galeria-grid {
+    .grade-obras {
         grid-template-columns: repeat(3, 1fr);
     }
 }
-/* ======================================= */
-/* FIM DA NOVA REGRA                       */
-/* ======================================= */
 
-
-/* --- Estilo Principal do Header (usando CSS Grid) --- */
-header .container {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo-galeria {
-    grid-column: 2 / 3;
-    justify-self: center;
-    font-weight: 600;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: var(--dark-gray);
-}
-
-.menu-principal {
-    grid-column: 3 / 4;
-    justify-self: end;
-}
-
-.hamburger-btn {
-    grid-column: 3 / 4;
-    justify-self: end;
-}
-
-/* --- Responsividade do Header Centralizado --- */
-@media (max-width: 768px) {
-    header .container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .logo-galeria,
-    .menu-principal,
-    .hamburger-btn {
-        grid-column: auto;
-        justify-self: auto;
-    }
-}
-
-/* --- CARD INDIVIDUAL DA OBRA (COM EFEITO HOVER) --- */
+/* Estilo do Card Individual */
 .obra-card {
     text-decoration: none;
-    color: inherit;
-    display: block;
-    overflow: hidden;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.obra-imagem-container {
-    position: relative;
+.obra-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 
-.obra-imagem-container img {
+.obra-card .obra-imagem-container img {
     width: 100%;
-    height: 350px;
-    object-fit: cover;
+    height: 400px; /* Ajuste a altura como preferir */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
     display: block;
-    background-color: #f5f5f5;
-    transition: transform 0.4s ease;
 }
 
-.obra-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(15, 15, 15, 0.7);
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.obra-card .obra-info {
     padding: 20px;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    text-align: center;
 }
 
-.obra-card:hover .obra-info {
-    opacity: 1;
-}
-
-.obra-card:hover .obra-imagem-container img {
-    transform: scale(1.05);
-}
-
-.obra-info .obra-artista {
-    font-size: 0.9rem;
+.obra-card .obra-titulo {
+    font-size: 1.2rem;
     font-weight: 600;
     margin: 0 0 5px 0;
 }
 
-.obra-info .obra-titulo {
-    font-size: 1.3rem;
-    font-weight: 500;
+.obra-card .obra-artista {
+    font-size: 1rem;
+    color: #666;
     margin: 0 0 15px 0;
 }
 
-.obra-info .obra-detalhes, 
-.obra-info .obra-dimensoes {
-    font-size: 0.9rem;
-    color: #e0e0e0;
-    margin: 0;
-}
-
-/* --- RODAPÉ SIMPLES --- */
-footer {
-    text-align: center;
-    padding: 40px 0;
-    margin-top: 60px;
-    border-top: 1px solid #eaeaea;
-    font-size: 0.9rem;
-    color: #666;
-}
-/* --- PÁGINA DE DETALHES DA OBRA --- */
-.voltar-link {
-    display: inline-block;
-    margin-bottom: 30px;
-    color: #666;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.voltar-link:hover {
-    color: #1c1c1c;
-}
-
-.obra-detalhe-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-}
-
-.coluna-imagem {
-    flex: 1;
-    min-width: 300px;
-}
-
-.coluna-imagem img {
-    width: 100%;
-    height: auto;
-    display: block;
-    background-color: #f5f5f5;
-}
-
-.coluna-info {
-    flex: 1;
-    min-width: 300px;
-}
-
-.artista-nome-detalhe {
+.obra-card .obra-preco {
     font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 10px 0;
-}
-
-.obra-titulo-detalhe {
-    font-size: 2.5rem;
-    font-weight: 500;
-    margin: 0 0 20px 0;
-    line-height: 1.2;
-}
-
-.lista-detalhes {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 30px 0;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 20px;
-}
-
-.lista-detalhes li {
-    margin-bottom: 8px;
-    color: #666;
-}
-
-.obra-descricao {
-    line-height: 1.7;
-    margin-bottom: 40px;
-}
-
-.btn-interesse {
-    display: inline-block;
-    background-color: #1c1c1c;
-    color: #ffffff;
-    padding: 15px 35px;
-    text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.btn-interesse:hover {
-    background-color: #555;
-}
-
-@media (max-width: 768px) {
-    .obra-detalhe-container {
-        flex-direction: column;
-    }
-
-    .obra-titulo-detalhe {
-        font-size: 2rem;
-    }
-}
-/* --- MENU DE NAVEGAÇÃO (HEADER) --- */
-.hamburger-btn {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1001;
-}
-
-.hamburger-btn .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: #1c1c1c;
-    transition: all 0.3s ease-in-out;
-}
-
-.menu-principal ul {
+    color: #007bff;
     margin: 0;
-    padding: 0;
-    list-style: none;
+}
+/* --- PÁGINAS DE FORMULÁRIO (LOGIN/CADASTRO) --- */
+
+.form-page {
     display: flex;
-    gap: 30px;
-}
-
-.menu-principal a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    font-size: 1rem;
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease;
-}
-
-.menu-principal a:hover {
-    border-bottom-color: #1c1c1c;
-}
-
-@media (max-width: 768px) {
-    .menu-principal {
-        display: none; 
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        max-width: 300px;
-        height: 100vh;
-        background-color: #ffffff;
-        padding-top: 80px;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        transition: right 0.4s ease-in-out;
-    }
-
-    .menu-principal.active {
-        display: block;
-        right: 0;
-    }
-
-    .menu-principal ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        gap: 0;
-    }
-
-    .menu-principal li {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .menu-principal a {
-        display: block;
-        padding: 20px;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    .menu-principal a:hover {
-        background-color: #f5f5f5;
-        border-bottom-color: #f0f0f0;
-    }
-
-    .hamburger-btn {
-        display: block;
-    }
-}
-/* --- PÁGINA DE ARTISTAS --- */
-.artistas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-}
-
-.artista-card {
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.artista-card:hover {
-    transform: translateY(-5px);
-}
-
-.artista-imagem-container {
-    margin-bottom: 20px;
-}
-
-.artista-imagem-container img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 3px solid white;
-}
-
-.artista-nome-card {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0 0 5px 0;
-}
-
-.artista-local {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* --- PÁGINA DE DETALHES DO ARTISTA --- */
-.artista-hero {
-    background-color: #f5f5f5;
-    padding: 60px 0;
-}
-
-.artista-hero-content {
-    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 40px;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
 }
 
-.artista-hero-imagem img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.artista-hero-texto h1 {
-    font-size: 3rem;
-    margin: 0 0 10px 0;
-}
-
-.artista-hero-local {
-    font-size: 1.1rem;
-    color: #666;
-    margin: 0 0 20px 0;
-}
-
-.artista-hero-bio {
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 600px;
-}
-
-.titulo-secao {
-    font-size: 2rem;
-    font-weight: 500;
-    text-align: center;
-    margin: 60px 0 40px 0;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 20px;
-}
-
-@media (max-width: 768px) {
-    .artista-hero-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .artista-hero-texto h1 {
-        font-size: 2.2rem;
-    }
-}
-/* --- PÁGINA SOBRE --- */
-.sobre-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 50px;
-    margin-top: 40px;
-}
-
-.sobre-coluna-imagem,
-.sobre-coluna-texto {
-    flex: 1;
-    min-width: 320px;
-}
-
-.sobre-coluna-imagem img {
+.form-container {
     width: 100%;
-    height: auto;
-    display: block;
-    background-color: #f5f5f5;
+    max-width: 450px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.sobre-coluna-texto h2 {
-    font-size: 2rem;
-    font-weight: 500;
+.form-container h2 {
+    text-align: center;
     margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.sobre-coluna-texto p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-@media (max-width: 768px) {
-    .sobre-container {
-        gap: 30px;
-    }
-
-    .sobre-coluna-texto h2 {
-        font-size: 1.8rem;
-    }
-}
-/* --- PÁGINA CONTATO --- */
-.contato-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin-top: 40px;
-}
-
-.contato-coluna-info,
-.contato-coluna-form {
-    flex: 1;
-    min-width: 320px;
-}
-
-.contato-coluna-info h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-top: 0;
-}
-
-.contato-coluna-info p {
-    line-height: 1.7;
-    color: #333;
-}
-
-.lista-contato {
-    list-style: none;
-    padding: 0;
-    margin: 30px 0;
-}
-
-.lista-contato li {
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.lista-contato strong {
-    color: #1c1c1c;
+    margin-bottom: 30px;
 }
 
 .form-grupo {
@@ -1098,16 +252,328 @@ footer {
     font-weight: 500;
 }
 
-.form-grupo input,
-.form-grupo textarea {
+.form-grupo input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
 }
 
-.form-grupo textarea {
-    resize: vertical;
+.btn-form {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-form:hover {
+    background-color: #0056b3;
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 20px;
+}
+/* --- PÁGINA DO CARRINHO DE COMPRAS --- */
+
+.pagina-carrinho .container {
+    max-width: 1200px; /* Um container um pouco menor para a página do carrinho */
+}
+
+.pagina-carrinho h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.carrinho-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+/* Tabela de Itens (ocupa mais espaço) */
+.carrinho-itens {
+    flex: 2; /* Ocupa 2/3 do espaço */
+    min-width: 300px;
+}
+
+.tabela-carrinho {
+    width: 100%;
+    border-collapse: collapse; /* Tira o espaçamento duplo das bordas */
+}
+
+.tabela-carrinho th, .tabela-carrinho td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabela-carrinho th {
+    font-weight: 600;
+}
+
+.tabela-carrinho img {
+    width: 80px;
+    height: auto;
+}
+
+.tabela-carrinho strong {
+    font-size: 1.1rem;
+}
+
+.tabela-carrinho p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+.remover-item {
+    color: #cc0000;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+/* Resumo do Pedido (ocupa menos espaço) */
+.carrinho-resumo {
+    flex: 1; /* Ocupa 1/3 do espaço */
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    height: fit-content; /* Faz a altura se ajustar ao conteúdo */
+}
+
+.carrinho-resumo h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.resumo-linha, .resumo-total {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.resumo-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.btn-finalizar {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745; /* Cor verde para finalizar compra */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-finalizar:hover {
+    background-color: #218838;
+}
+
+/* Responsividade do Carrinho */
+@media (max-width: 900px) {
+    .carrinho-container {
+        flex-direction: column; /* Empilha os itens e o resumo */
+    }
+}
+/* --- PÁGINA DE DETALHES DA OBRA --- */
+.pagina-detalhe-obra .container {
+    max-width: 1200px;
+}
+
+.detalhe-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 40px;
+}
+
+/* Coluna da Imagem */
+.coluna-imagem-detalhe {
+    flex: 1;
+    min-width: 350px;
+}
+.coluna-imagem-detalhe #imagem-principal {
+    width: 100%;
+    border: 1px solid #eee;
+}
+.galeria-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.galeria-thumbnails .thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+.galeria-thumbnails .thumb:hover, .galeria-thumbnails .thumb.active {
+    opacity: 1;
+    border-color: #007bff;
+}
+
+/* Coluna de Informações */
+.coluna-info-detalhe {
+    flex: 1;
+    min-width: 350px;
+}
+.detalhe-artista a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+}
+.detalhe-titulo {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+.detalhe-preco {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 25px;
+}
+.detalhe-descricao ul {
+    list-style: none;
+    padding: 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.btn-comprar {
+    width: 100%;
+    padding: 20px;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #28a745; /* Verde para 'comprar' */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-comprar:hover {
+    background-color: #218838;
+}
+
+.frete-calculo {
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+.frete-form {
+    display: flex;
+}
+.frete-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+}
+.frete-form button {
+    padding: 10px 15px;
+    border: 1px solid #555;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+}
+/* --- RODAPÉ PROFISSIONAL --- */
+
+footer {
+    background-color: #2c3e50; /* Um azul escuro/cinza para o rodapé */
+    color: #ecf0f1; /* Um branco acinzentado para o texto */
+    padding: 60px 0 0 0;
+    margin-top: 60px;
+}
+
+.footer-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    /* Cria colunas responsivas. Em telas menores, elas se empilham. */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.footer-coluna h4 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Linha decorativa embaixo dos títulos */
+.footer-coluna h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #007bff; /* Azul de destaque da nossa paleta */
+}
+
+.footer-coluna p {
+    line-height: 1.7;
+    color: #bdc3c7; /* Um cinza um pouco mais escuro para parágrafos */
+}
+
+.footer-coluna ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-coluna ul li {
+    margin-bottom: 10px;
+}
+
+.footer-coluna a {
+    text-decoration: none;
+    color: #ecf0f1;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.footer-coluna a:hover {
+    color: #ffffff;
+    padding-left: 5px; /* Efeito sutil de deslocamento */
+}
+
+.footer-sociais a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+
+.footer-bottom-bar {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: rgba(0, 0, 0, 0.2); /* Um preto com transparência */
+    font-size: 0.9rem;
+}
+
+.footer-bottom-bar p {
+    margin: 0;
 }

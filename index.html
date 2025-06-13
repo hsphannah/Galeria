@@ -3,74 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - Sua Galeria</title>
+    <title>Sua Galeria de Arte</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-    <div class="container">
-        <a href="catalogo.html" class="logo-galeria">Sua Galeria</a>
-
-        <nav class="menu-principal">
-            <ul>
-                <li><a href="artistas.html">Artistas</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
-            </ul>
-        </nav>
-
-        <button class="hamburger-btn" aria-label="Abrir menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+    <div class="header-container">
+        <div class="logo-header">
+            <a href="index.html">Sua Galeria</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar obras, artistas...">
+            <button>Buscar</button>
+        </div>
+        <div class="user-actions">
+            <a href="login.html" class="action-link">Login</a>
+            <a href="carrinho.html" class="action-link">Carrinho (0)</a>
+        </div>
     </div>
 </header>
 
-    <main>
-        <div class="container">
-            <h1 class="titulo-pagina">Catálogo de Obras</h1>
+    <div class="loja-container">
+        <aside class="menu-lateral">
+            <h3>Artistas</h3>
+            <ul>
+                <li><a href="#">Artista Um</a></li>
+                <li><a href="#">Artista Dois</a></li>
+                <li><a href="#">Artista Três</a></li>
+                <li><a href="#">Artista Quatro</a></li>
+            </ul>
+            
+            <h3>Categorias</h3>
+            <ul>
+                <li><a href="#">Esculturas</a></li>
+                <li><a href="#">Pinturas</a></li>
+                <li><a href="#">Fotografias</a></li>
+            </ul>
+        </aside>
 
-            <div class="galeria-grid">
+        <main class="conteudo-principal">
+    <h1>Obras em Destaque</h1>
+    
+    <div class="grade-obras">
 
-                <a href="obra-detalhe.html" class="obra-card">
-    <div class="obra-imagem-container">
-        <img src="imagens/obra1.jpg" alt="Título da Obra Um">
-        
-        <div class="obra-info">
-            <p class="obra-artista">Nome do Artista</p>
-            <h3 class="obra-titulo">Título da Obra Um</h3>
-            <p class="obra-detalhes">Acrílica sobre tela, 2024</p>
-            <p class="obra-dimensoes">70 x 50 cm</p>
+        <a href="obra-detalhe.html" class="obra-card">
+            <div class="obra-imagem-container">
+                <img src="https://via.placeholder.com/400x500.png?text=Escultura+Moderna" alt="Nome da Obra Um">
+            </div>
+            <div class="obra-info">
+                <h3 class="obra-titulo">Formas Concretas I</h3>
+                <p class="obra-artista">Artista Um</p>
+                <p class="obra-preco">R$ 1.200,00</p>
+            </div>
+        </a>
+
+        <a href="obra-detalhe2.html" class="obra-card">
+            <div class="obra-imagem-container">
+                <img src="https://via.placeholder.com/400x500.png?text=Pintura+Abstrata" alt="Nome da Obra Dois">
+            </div>
+            <div class="obra-info">
+                <h3 class="obra-titulo">Horizonte Partido</h3>
+                <p class="obra-artista">Artista Dois</p>
+                <p class="obra-preco">R$ 2.500,00</p>
+            </div>
+        </a>
+
+        <a href="obra-detalhe3.html" class="obra-card">
+            <div class="obra-imagem-container">
+                <img src="https://via.placeholder.com/400x500.png?text=Fotografia+P&B" alt="Nome da Obra Três">
+            </div>
+            <div class="obra-info">
+                <h3 class="obra-titulo">Sombra e Luz</h3>
+                <p class="obra-artista">Artista Três</p>
+                <p class="obra-preco">R$ 850,00</p>
+            </div>
+        </a>
+
+        </div>
+</main>
+    </div>
+
+   <footer>
+    <div class="footer-container">
+        <div class="footer-coluna">
+            <h4>Sua Galeria</h4>
+            <p>Conectando arte e pessoas através de uma curadoria cuidadosa de obras que dialogam com o presente.</p>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Navegue</h4>
+            <ul>
+                <li><a href="index.html">Catálogo</a></li>
+                <li><a href="artistas.html">Artistas</a></li>
+                <li><a href="sobre.html">Sobre Nós</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Contato</h4>
+            <p>
+                Sua Rua, 123, Bairro<br>
+                Cidade, UF - 12345-678<br>
+                <a href="mailto:contato@suagaleria.com.br">contato@suagaleria.com.br</a><br>
+                (48) 99999-9999
+            </p>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Siga-nos</h4>
+            <div class="footer-sociais">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+            </div>
         </div>
     </div>
-</a>
 
-                <a href="obra-detalhe2.html" class="obra-card">
-    <div class="obra-imagem-container">
-        <img src="imagens/obra1.jpg" alt="Título da Obra Um">
-        
-        <div class="obra-info">
-            <p class="obra-artista">Nome do Artista</p>
-            <h3 class="obra-titulo">Título da Obra Um</h3>
-            <p class="obra-detalhes">Acrílica sobre tela, 2024</p>
-            <p class="obra-dimensoes">70 x 50 cm</p>
-        </div>
+    <div class="footer-bottom-bar">
+        <p>© 2025 Sua Galeria - Todos os direitos reservados.</p>
     </div>
-</a>
+</footer>
 
-                </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>© 2025 Sua Galeria. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script> </body>
-
+    <script src="script.js"></script>
 </body>
 </html>
