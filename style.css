@@ -1,65 +1,33 @@
-/* --- ESTILOS GERAIS --- */
+/* ESTILOS GERAIS */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #fdfdfd;
 }
 
-/* --- LAYOUT PRINCIPAL DA LOJA --- */
-
-/* Usaremos CSS Grid para criar o layout de 2 colunas */
-.loja-container {
-    display: grid;
-    /* A primeira coluna (menu) tem 250px, a segunda (conteúdo) ocupa o resto */
-    grid-template-columns: 250px 1fr;
-    gap: 30px; /* Espaço entre o menu e o conteúdo */
+.container {
     width: 90%;
     max-width: 1400px;
-    margin: 40px auto; /* Centraliza o container na página */
+    margin: 0 auto;
 }
 
-/* --- MENU LATERAL (FILTROS) --- */
-.menu-lateral {
-    padding-right: 20px;
-    border-right: 1px solid #e0e0e0;
-}
-
-.menu-lateral h3 {
-    font-size: 1.2rem;
-    color: #333;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
-    margin-top: 0;
-}
-
-.menu-lateral ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 40px 0;
-}
-
-.menu-lateral li {
-    margin-bottom: 10px;
-}
-
-.menu-lateral a {
-    text-decoration: none;
-    color: #555;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-}
-
-.menu-lateral a:hover {
-    color: #007bff; 
-}
-
-/* --- ÁREA DE CONTEÚDO PRINCIPAL --- */
-.conteudo-principal h1 {
+.titulo-pagina {
+    text-align: center;
+    font-weight: 500;
     font-size: 2rem;
-    margin-top: 0;
+    margin: 40px 0;
 }
 
-//* --- HEADER PROFISSIONAL --- */
+.titulo-secao {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 60px 0 40px 0;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+}
+/* CABECALHO */
 header {
     background-color: #ffffff;
     padding: 20px 0;
@@ -122,58 +90,96 @@ header {
     color: #007bff;
 }
 
-/* Responsividade do Header */
-@media (max-width: 900px) {
-    .search-bar {
-        display: none; 
-    }
+/* LAYOUT PRINCIPAL (2 COLUNAS)     */
+.loja-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto;
 }
 
-@media (max-width: 768px) {
-    .header-container {
-        /* No mobile, voltamos a ter só o logo de um lado e as ações do outro */
-    }
+/* --- MENU LATERAL (FILTROS) --- */
+.menu-lateral {
+    padding-right: 20px;
+    border-right: 1px solid #e0e0e0;
 }
 
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 768px) {
-    /* Em telas menores, o layout de grid é desfeito */
-    .loja-container {
-        display: block; /* O menu e o conteúdo ficarão um sobre o outro */
-    }
-
-    .menu-lateral {
-        border-right: none;
-        border-bottom: 1px solid #e0e0e0;
-        padding-right: 0;
-        margin-bottom: 30px;
-    }
+.menu-lateral h3 {
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 0;
 }
-/* --- GRADE DE OBRAS E CARDS --- */
 
-.grade-obras {
+.menu-lateral ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 40px 0;
+}
+
+.menu-lateral li {
+    margin-bottom: 10px;
+}
+
+.menu-lateral a {
+    text-decoration: none;
+    color: #555;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.menu-lateral a:hover {
+    color: #007bff; 
+}
+
+/* --- BUSCA NO MENU LATERAL --- */
+.busca-lateral {
+    display: flex;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.busca-lateral input[type="search"] {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.busca-lateral button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.busca-lateral button:hover {
+    background-color: #0056b3;
+}
+
+/* --- ÁREA DE CONTEÚDO PRINCIPAL --- */
+.conteudo-principal h1 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+/* --- GRADE DE OBRAS E ARTISTAS --- */
+.grade-obras, .artistas-grid {
     display: grid;
     gap: 30px;
-
-    /* Mobile-first: 1 coluna por padrão */
     grid-template-columns: 1fr;
 }
 
-/* Tablets e telas médias: 2 colunas */
-@media (min-width: 768px) {
-    .grade-obras {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Desktops e telas grandes: 3 colunas */
-@media (min-width: 1024px) {
-    .grade-obras {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* Estilo do Card Individual */
+/* --- CARD DE OBRA --- */
 .obra-card {
     text-decoration: none;
     color: #333;
@@ -189,8 +195,8 @@ header {
 
 .obra-card .obra-imagem-container img {
     width: 100%;
-    height: 400px; /* Ajuste a altura como preferir */
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    height: 400px;
+    object-fit: cover;
     display: block;
 }
 
@@ -217,8 +223,78 @@ header {
     color: #007bff;
     margin: 0;
 }
-/* --- PÁGINAS DE FORMULÁRIO (LOGIN/CADASTRO) --- */
 
+/* --- CARD DE ARTISTA --- */
+.artista-card-novo {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.artista-card-novo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.artista-card-novo .artista-card-imagem-link img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.artista-card-novo .artista-card-info {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.artista-card-info h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+}
+
+.artista-card-info h3 a {
+    text-decoration: none;
+    color: #333;
+}
+
+.artista-card-info .artista-card-bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.artista-card-info .btn-ver-obras {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+}
+
+.artista-card-info .btn-ver-obras:hover {
+    background-color: #0056b3;
+}
+/* --- PÁGINAS (LOGIN/CADASTRO) --- */
 .form-page {
     display: flex;
     justify-content: center;
@@ -257,7 +333,7 @@ header {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    box-sizing: border-box;
 }
 
 .btn-form {
@@ -281,10 +357,10 @@ header {
     text-align: center;
     margin-top: 20px;
 }
-/* --- PÁGINA DO CARRINHO DE COMPRAS --- */
 
+/* --- PÁGINA DO CARRINHO --- */
 .pagina-carrinho .container {
-    max-width: 1200px; /* Um container um pouco menor para a página do carrinho */
+    max-width: 1200px;
 }
 
 .pagina-carrinho h1 {
@@ -298,15 +374,14 @@ header {
     gap: 40px;
 }
 
-/* Tabela de Itens (ocupa mais espaço) */
 .carrinho-itens {
-    flex: 2; /* Ocupa 2/3 do espaço */
+    flex: 2;
     min-width: 300px;
 }
 
 .tabela-carrinho {
     width: 100%;
-    border-collapse: collapse; /* Tira o espaçamento duplo das bordas */
+    border-collapse: collapse;
 }
 
 .tabela-carrinho th, .tabela-carrinho td {
@@ -340,13 +415,12 @@ header {
     text-decoration: none;
 }
 
-/* Resumo do Pedido (ocupa menos espaço) */
 .carrinho-resumo {
-    flex: 1; /* Ocupa 1/3 do espaço */
+    flex: 1;
     background-color: #f8f9fa;
     padding: 30px;
     border-radius: 8px;
-    height: fit-content; /* Faz a altura se ajustar ao conteúdo */
+    height: fit-content;
 }
 
 .carrinho-resumo h3 {
@@ -372,7 +446,7 @@ header {
     padding: 15px;
     border: none;
     border-radius: 5px;
-    background-color: #28a745; /* Cor verde para finalizar compra */
+    background-color: #28a745;
     color: white;
     font-size: 1.1rem;
     font-weight: bold;
@@ -384,12 +458,7 @@ header {
     background-color: #218838;
 }
 
-/* Responsividade do Carrinho */
-@media (max-width: 900px) {
-    .carrinho-container {
-        flex-direction: column; /* Empilha os itens e o resumo */
-    }
-}
+
 /* --- PÁGINA DE DETALHES DA OBRA --- */
 .pagina-detalhe-obra .container {
     max-width: 1200px;
@@ -402,20 +471,22 @@ header {
     margin-top: 40px;
 }
 
-/* Coluna da Imagem */
 .coluna-imagem-detalhe {
     flex: 1;
     min-width: 350px;
 }
+
 .coluna-imagem-detalhe #imagem-principal {
     width: 100%;
     border: 1px solid #eee;
 }
+
 .galeria-thumbnails {
     display: flex;
     gap: 10px;
     margin-top: 10px;
 }
+
 .galeria-thumbnails .thumb {
     width: 80px;
     height: 80px;
@@ -425,31 +496,35 @@ header {
     opacity: 0.6;
     transition: opacity 0.2s ease, border-color 0.2s ease;
 }
+
 .galeria-thumbnails .thumb:hover, .galeria-thumbnails .thumb.active {
     opacity: 1;
     border-color: #007bff;
 }
 
-/* Coluna de Informações */
 .coluna-info-detalhe {
     flex: 1;
     min-width: 350px;
 }
+
 .detalhe-artista a {
     text-decoration: none;
     color: #555;
     font-weight: 500;
 }
+
 .detalhe-titulo {
     font-size: 2.5rem;
     margin: 10px 0;
 }
+
 .detalhe-preco {
     font-size: 2rem;
     font-weight: bold;
     color: #007bff;
     margin-bottom: 25px;
 }
+
 .detalhe-descricao ul {
     list-style: none;
     padding: 0;
@@ -464,12 +539,13 @@ header {
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: #28a745; /* Verde para 'comprar' */
+    background-color: #28a745;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .btn-comprar:hover {
     background-color: #218838;
 }
@@ -480,15 +556,18 @@ header {
     padding: 20px;
     border-radius: 5px;
 }
+
 .frete-form {
     display: flex;
 }
+
 .frete-form input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-right: none;
 }
+
 .frete-form button {
     padding: 10px 15px;
     border: 1px solid #555;
@@ -496,11 +575,149 @@ header {
     color: white;
     cursor: pointer;
 }
-/* --- RODAPÉ PROFISSIONAL --- */
 
+/* --- PÁGINA DE DETALHES DO ARTISTA --- */
+.artista-hero {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+}
+
+.artista-hero-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.artista-hero-imagem img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.artista-hero-texto h1 {
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+}
+
+.artista-hero-local {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin: 0 0 20px 0;
+}
+
+.artista-hero-bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+/* --- PÁGINA SOBRE --- */
+.sobre-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+    margin-top: 40px;
+}
+
+.sobre-coluna-imagem,
+.sobre-coluna-texto {
+    flex: 1;
+    min-width: 320px;
+}
+
+.sobre-coluna-imagem img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.sobre-coluna-texto h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.sobre-coluna-texto p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* --- PÁGINA CONTATO --- */
+.contato-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 40px;
+}
+
+.contato-coluna-info,
+.contato-coluna-form {
+    flex: 1;
+    min-width: 320px;
+}
+
+.contato-coluna-info h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+.contato-coluna-info p {
+    line-height: 1.7;
+    color: #333;
+}
+
+.lista-contato {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.lista-contato li {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.lista-contato strong {
+    color: #1c1c1c;
+}
+
+.form-grupo {
+    margin-bottom: 20px;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-grupo input,
+.form-grupo textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-grupo textarea {
+    resize: vertical;
+}
+
+/* --- RODAPÉ --- */
 footer {
-    background-color: #2c3e50; /* Um azul escuro/cinza para o rodapé */
-    color: #ecf0f1; /* Um branco acinzentado para o texto */
+    background-color: #2c3e50;
+    color: #ecf0f1;
     padding: 60px 0 0 0;
     margin-top: 60px;
 }
@@ -510,7 +727,6 @@ footer {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    /* Cria colunas responsivas. Em telas menores, elas se empilham. */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
 }
@@ -524,7 +740,6 @@ footer {
     padding-bottom: 10px;
 }
 
-/* Linha decorativa embaixo dos títulos */
 .footer-coluna h4::after {
     content: '';
     position: absolute;
@@ -532,12 +747,12 @@ footer {
     bottom: 0;
     width: 50px;
     height: 2px;
-    background-color: #007bff; /* Azul de destaque da nossa paleta */
+    background-color: #007bff;
 }
 
 .footer-coluna p {
     line-height: 1.7;
-    color: #bdc3c7; /* Um cinza um pouco mais escuro para parágrafos */
+    color: #bdc3c7;
 }
 
 .footer-coluna ul {
@@ -557,7 +772,7 @@ footer {
 
 .footer-coluna a:hover {
     color: #ffffff;
-    padding-left: 5px; /* Efeito sutil de deslocamento */
+    padding-left: 5px;
 }
 
 .footer-sociais a {
@@ -570,133 +785,77 @@ footer {
     text-align: center;
     padding: 20px;
     margin-top: 40px;
-    background-color: rgba(0, 0, 0, 0.2); /* Um preto com transparência */
+    background-color: rgba(0, 0, 0, 0.2);
     font-size: 0.9rem;
 }
 
 .footer-bottom-bar p {
     margin: 0;
 }
-/* --- PÁGINA SOBRE --- */
-.sobre-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 50px;
-    margin-top: 40px;
-}
-.sobre-coluna-imagem,
-.sobre-coluna-texto {
-    flex: 1;
-    min-width: 320px;
-}
-.sobre-coluna-imagem img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-.sobre-coluna-texto h2 {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-.sobre-coluna-texto p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #333;
-    margin-bottom: 20px;
-}
-/* --- PÁGINA DE ARTISTAS (NOVO DESIGN) --- */
+/* ESTILOS RESPONSIVOS            */
 
-.artistas-grid {
-    display: grid;
-    /* Usaremos a mesma grade responsiva de 3 colunas que fizemos para as obras */
-    grid-template-columns: 1fr;
-    gap: 30px;
-    margin-top: 40px;
+@media (max-width: 900px) {
+    .search-bar {
+        display: none;
+    }
+    .carrinho-container {
+        flex-direction: column;
+    }
 }
 
-@media (min-width: 600px) {
+@media (max-width: 768px) {
+    .loja-container {
+        display: block;
+    }
+
+    .menu-lateral {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .obra-detalhe-container {
+        flex-direction: column;
+    }
+
+    .obra-titulo-detalhe {
+        font-size: 2rem;
+    }
+    
+    .artista-hero-content {
+        flex-direction: column;
+        text-align: center;
+        width: 90%;
+    }
+
+    .artista-hero-texto h1 {
+        font-size: 2.2rem;
+    }
+
+    .sobre-container {
+        gap: 30px;
+    }
+
+    .sobre-coluna-texto h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .grade-obras {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .artistas-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media (min-width: 1024px) {
+    .grade-obras {
+        grid-template-columns: repeat(3, 1fr);
+    }
     .artistas-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-}
-
-/* Estilo do novo card de artista */
-.artista-card-novo {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px; /* Bordas arredondadas para um visual mais suave */
-    overflow: hidden; /* Garante que a imagem não "vaze" das bordas arredondadas */
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.artista-card-novo:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-}
-
-.artista-card-novo .artista-card-imagem-link img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-}
-
-.artista-card-novo .artista-card-info {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Faz esta área crescer para preencher o espaço */
-}
-
-.artista-card-info h3 {
-    margin: 0 0 15px 0;
-    font-size: 1.5rem;
-}
-
-.artista-card-info h3 a {
-    text-decoration: none;
-    color: #333;
-}
-
-.artista-card-info .artista-card-bio {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-    flex-grow: 1; /* Garante que o texto ocupe o espaço e alinhe o botão no final */
-
-    /* truque para limitar o texto a 4 linhas e não quebrar o layout */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* Número de linhas */
-    -webkit-box-orient: vertical;
-}
-
-.artista-card-info .btn-ver-obras {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px; /* Espaço entre o texto e o botão */
-    transition: background-color 0.2s ease;
-    align-self: flex-start; /* Alinha o botão à esquerda */
-}
-
-.artista-card-info .btn-ver-obras:hover {
-    background-color: #0056b3;
 }
