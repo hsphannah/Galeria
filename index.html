@@ -25,64 +25,31 @@
 
     <div class="loja-container">
         <aside class="menu-lateral">
-            <div class="busca-lateral">
+    <div class="busca-lateral">
         <input type="search" placeholder="Buscar na coleção...">
         <button type="submit">Buscar</button>
     </div>
+    
     <h3>Artistas</h3>
     <ul>
-        <li><a href="artista-detalhe.html">Artista Um</a></li>
-        <li><a href="artista-detalhe2.html">Artista Dois</a></li>
-        <li><a href="artista-detalhe3.html">Artista Três</a></li>
-        <li><a href="#">Artista Quatro</a></li>
+        <li><a href="#" data-filtro="todos">Ver Todos</a></li> 
+        <li><a href="#" data-filtro="artista" data-valor="Artista Um">Artista Um</a></li>
+        <li><a href="#" data-filtro="artista" data-valor="Artista Dois">Artista Dois</a></li>
+        <li><a href="#" data-filtro="artista" data-valor="Artista Três">Artista Três</a></li>
     </ul>
 
     <h3>Categorias</h3>
     <ul>
-        <li><a href="#">Esculturas</a></li>
-        <li><a href="#">Pinturas</a></li>
-        <li><a href="#">Fotografias</a></li>
+        <li><a href="#" data-filtro="categoria" data-valor="escultura">Esculturas</a></li>
+        <li><a href="#" data-filtro="categoria" data-valor="pintura">Pinturas</a></li>
+        <li><a href="#" data-filtro="categoria" data-valor="fotografia">Fotografias</a></li>
     </ul>
-        </aside>
+</aside>
 
         <main class="conteudo-principal">
     <h1>Obras em Destaque</h1>
     
     <div class="grade-obras">
-
-        <a href="obra-detalhe.html" class="obra-card">
-            <div class="obra-imagem-container">
-                <img src="https://via.placeholder.com/400x500.png?text=Escultura+Moderna" alt="Nome da Obra Um">
-            </div>
-            <div class="obra-info">
-                <h3 class="obra-titulo">Formas Concretas I</h3>
-                <p class="obra-artista">Artista Um</p>
-                <p class="obra-preco">R$ 1.200,00</p>
-            </div>
-        </a>
-
-        <a href="obra-detalhe2.html" class="obra-card">
-            <div class="obra-imagem-container">
-                <img src="https://via.placeholder.com/400x500.png?text=Pintura+Abstrata" alt="Nome da Obra Dois">
-            </div>
-            <div class="obra-info">
-                <h3 class="obra-titulo">Horizonte Partido</h3>
-                <p class="obra-artista">Artista Dois</p>
-                <p class="obra-preco">R$ 2.500,00</p>
-            </div>
-        </a>
-
-        <a href="obra-detalhe3.html" class="obra-card">
-            <div class="obra-imagem-container">
-                <img src="https://via.placeholder.com/400x500.png?text=Fotografia+P&B" alt="Nome da Obra Três">
-            </div>
-            <div class="obra-info">
-                <h3 class="obra-titulo">Sombra e Luz</h3>
-                <p class="obra-artista">Artista Três</p>
-                <p class="obra-preco">R$ 850,00</p>
-            </div>
-        </a>
-
         </div>
 </main>
     </div>
@@ -127,6 +94,7 @@
     </div>
 </footer>
 
-    <script src="script.js"></script>
+     <script src="dados.js"></script>
+     <script src="script.js"></script>
 </body>
 </html>
