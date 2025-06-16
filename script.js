@@ -1,63 +1,76 @@
-// --- LÓGICA PARA EXIBIR OBRAS DO CATÁLOGO ---
+// Aguarda o carregamento do DOM (boa prática)
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // --- LÓGICA DO MENU HAMBÚRGUER (se você o adicionou neste projeto) ---
+  // (Pode colar o código do seu menu hambúrguer aqui se ele estava neste arquivo)
 
-// 1. Encontrar o lugar na página onde vamos inserir os cards
-const gradeObras = document.querySelector('.grade-obras');
 
-// 2. Criar uma função que desenha os cards na tela
-function exibirObras(listaDeObras) {
-  // Limpa a grade antes de adicionar novos itens
-  gradeObras.innerHTML = '';
+  // --- LÓGICA DINÂMICA DO CATÁLOGO ---
 
-  // 3. Para cada obra na lista, criar o HTML do card
-  listaDeObras.forEach(obra => {
-    const cardHTML = `
-      <a href="${obra.detalhes_url}" class="obra-card">
-          <div class="obra-imagem-container">
-              <img src="${obra.imagem_url}" alt="${obra.titulo}">
-          </div>
-          <div class="obra-info">
-              <h3 class="obra-titulo">${obra.titulo}</h3>
-              <p class="obra-artista">${obra.artista}</p>
-              <p class="obra-preco">R$ ${obra.preco.toFixed(2).replace('.', ',')}</p>
-          </div>
-      </a>
-    `;
-    
-    // 4. Inserir o HTML do card recém-criado dentro da grade
-    gradeObras.innerHTML += cardHTML;
-  });
-}
+  // A URL da nossa nova API que está rodando localmente
+  const API_URL = 'http://localhost:3000/api/obras';
 
-// 5. Chamar a função pela primeira vez para exibir TODAS as obras
-// A variável 'obrasDeArte' vem do nosso arquivo 'dados.js'
-exibirObras(obrasDeArte);
-// --- LÓGICA DOS FILTROS DO MENU LATERAL ---
+  // Referência à grade de obras no HTML
+  const gradeObras = document.querySelector('.grade-obras');
+  // Referência a todos os links de filtro
+  const linksFiltro = document.querySelectorAll('.menu-lateral a');
 
-// 1. Encontrar todos os links de filtro na página
-const linksFiltro = document.querySelectorAll('.menu-lateral a');
+  // Variável para guardar todas as obras que vêm da API
+  let todasAsObras = [];
 
-// 2. Adicionar um "ouvinte" de clique para cada um dos links
-linksFiltro.forEach(link => {
-  link.addEventListener('click', function(event) {
-    // Impede que o link recarregue a página
-    event.preventDefault(); 
+  // Função que desenha os cards na tela (a mesma que já tínhamos)
+  function exibirObras(listaDeObras) {
+    gradeObras.innerHTML = ''; // Limpa a grade antes de adicionar
+    listaDeObras.forEach(obra => {
+      const cardHTML = `
+        <a href="${obra.detalhes_url}" class="obra-card" target="_blank">
+            <div class="obra-imagem-container">
+                <img src="${obra.imagem_url}" alt="${obra.titulo}">
+            </div>
+            <div class="obra-info">
+                <h3 class="obra-titulo">${obra.titulo}</h3>
+                <p class="obra-artista">${obra.artista}</p>
+                <p class="obra-preco">R$ ${obra.preco.toFixed(2).replace('.', ',')}</p>
+            </div>
+        </a>
+      `;
+      gradeObras.innerHTML += cardHTML;
+    });
+  }
 
-    // 3. Pegar as informações do filtro do link que foi clicado
-    const filtro = this.dataset.filtro;   // ex: 'categoria'
-    const valor = this.dataset.valor;     // ex: 'escultura'
-
+  // Função para filtrar as obras
+  function filtrarObras(filtro, valor) {
     let obrasFiltradas;
-
-    // 4. Filtrar a lista de obras
     if (filtro === 'todos') {
-      // Se o filtro for 'todos', usamos a lista completa original
-      obrasFiltradas = obrasDeArte;
+      obrasFiltradas = todasAsObras;
     } else {
-      // Senão, filtramos a lista com base no filtro e valor
-      obrasFiltradas = obrasDeArte.filter(obra => obra[filtro] === valor);
+      obrasFiltradas = todasAsObras.filter(obra => obra[filtro] === valor);
     }
-
-    // 5. Chamar nossa função já existente para exibir a nova lista filtrada
     exibirObras(obrasFiltradas);
-  });
+  }
+
+  // --- A MÁGICA DA CONEXÃO: FETCH API ---
+
+  // 1. Usamos o 'fetch' para buscar os dados na nossa API
+  fetch(API_URL)
+    .then(response => response.json()) // 2. Converte a resposta para o formato JSON
+    .then(data => {
+      // 3. 'data' agora é a nossa lista de obras vinda do servidor!
+      todasAsObras = data; // Guardamos os dados na nossa variável
+      exibirObras(todasAsObras); // Exibimos todas as obras na tela pela primeira vez
+      
+      // 4. Agora que temos os dados, ativamos os filtros
+      linksFiltro.forEach(link => {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const filtro = this.dataset.filtro;
+          const valor = this.dataset.valor;
+          filtrarObras(filtro, valor);
+        });
+      });
+    })
+    .catch(error => {
+      console.error('Erro ao buscar dados da API:', error);
+      gradeObras.innerHTML = '<p>Não foi possível carregar as obras. Tente novamente mais tarde.</p>';
+    });
 });
