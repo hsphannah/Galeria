@@ -1,26 +1,21 @@
-// Aguarda o carregamento do DOM (boa prática)
 document.addEventListener('DOMContentLoaded', function() {
   
-  // --- LÓGICA DO MENU HAMBÚRGUER (se você o adicionou neste projeto) ---
-  // (Pode colar o código do seu menu hambúrguer aqui se ele estava neste arquivo)
+  // --- LÓGICA DINÂMICA DO CATÁLOGO E API ---
 
+  // URL base da nossa API
+  const API_BASE_URL = 'http://localhost:3000/api/obras';
 
-  // --- LÓGICA DINÂMICA DO CATÁLOGO ---
-
-  // A URL da nossa nova API que está rodando localmente
-  const API_URL = 'http://localhost:3000/api/obras';
-
-  // Referência à grade de obras no HTML
+  // Referências aos elementos da página
   const gradeObras = document.querySelector('.grade-obras');
-  // Referência a todos os links de filtro
   const linksFiltro = document.querySelectorAll('.menu-lateral a');
 
-  // Variável para guardar todas as obras que vêm da API
-  let todasAsObras = [];
-
-  // Função que desenha os cards na tela (a mesma que já tínhamos)
+  // Função que desenha os cards na tela (não muda)
   function exibirObras(listaDeObras) {
     gradeObras.innerHTML = ''; // Limpa a grade antes de adicionar
+    if (listaDeObras.length === 0) {
+        gradeObras.innerHTML = '<p>Nenhuma obra encontrada para este filtro.</p>';
+        return;
+    }
     listaDeObras.forEach(obra => {
       const cardHTML = `
         <a href="${obra.detalhes_url}" class="obra-card" target="_blank">
@@ -38,39 +33,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Função para filtrar as obras
-  function filtrarObras(filtro, valor) {
-    let obrasFiltradas;
-    if (filtro === 'todos') {
-      obrasFiltradas = todasAsObras;
-    } else {
-      obrasFiltradas = todasAsObras.filter(obra => obra[filtro] === valor);
-    }
-    exibirObras(obrasFiltradas);
+  // NOVA FUNÇÃO REUTILIZÁVEL para buscar e exibir os dados
+  function buscarEExibirObras(url) {
+    gradeObras.innerHTML = '<p>Carregando obras...</p>'; // Mensagem de carregando
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        exibirObras(data); // Usa nossa função para desenhar as obras recebidas
+      })
+      .catch(error => {
+        console.error('Erro ao buscar dados da API:', error);
+        gradeObras.innerHTML = '<p>Não foi possível carregar as obras. Tente novamente mais tarde.</p>';
+      });
   }
 
-  // --- A MÁGICA DA CONEXÃO: FETCH API ---
+  // --- EVENTOS E EXECUÇÃO ---
 
-  // 1. Usamos o 'fetch' para buscar os dados na nossa API
-  fetch(API_URL)
-    .then(response => response.json()) // 2. Converte a resposta para o formato JSON
-    .then(data => {
-      // 3. 'data' agora é a nossa lista de obras vinda do servidor!
-      todasAsObras = data; // Guardamos os dados na nossa variável
-      exibirObras(todasAsObras); // Exibimos todas as obras na tela pela primeira vez
+  // 1. Ao carregar a página, busca e exibe TODAS as obras
+  buscarEExibirObras(API_BASE_URL);
+
+  // 2. Adiciona o evento de clique para CADA link de filtro
+  linksFiltro.forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault(); // Impede que a página recarregue
+
+      const filtro = this.dataset.filtro;
+      const valor = this.dataset.valor;
       
-      // 4. Agora que temos os dados, ativamos os filtros
-      linksFiltro.forEach(link => {
-        link.addEventListener('click', function(event) {
-          event.preventDefault();
-          const filtro = this.dataset.filtro;
-          const valor = this.dataset.valor;
-          filtrarObras(filtro, valor);
-        });
-      });
-    })
-    .catch(error => {
-      console.error('Erro ao buscar dados da API:', error);
-      gradeObras.innerHTML = '<p>Não foi possível carregar as obras. Tente novamente mais tarde.</p>';
+      let novaUrl;
+
+      // Monta a URL correta com base no filtro clicado
+      if (filtro === 'todos') {
+        novaUrl = API_BASE_URL;
+      } else {
+        // Usamos encodeURIComponent para tratar espaços e caracteres especiais com segurança
+        novaUrl = `${API_BASE_URL}?${filtro}=${encodeURIComponent(valor)}`;
+      }
+      
+      // Chama a função para buscar os dados da nova URL filtrada
+      buscarEExibirObras(novaUrl);
     });
+  });
+  // --- LÓGICA DA BARRA DE BUSCA LATERAL ---
+
+// 1. Selecionar o formulário de busca e o campo de input
+const formBusca = document.querySelector('.busca-lateral');
+const inputBusca = document.querySelector('.busca-lateral input[type="search"]');
+
+// 2. Adicionar um "ouvinte" para o evento de 'submit' do formulário
+//    'submit' funciona tanto com o clique no botão quanto com a tecla "Enter"
+if (formBusca && inputBusca) {
+  formBusca.addEventListener('submit', function(event) {
+    // Impede o comportamento padrão do formulário (que é recarregar a página)
+    event.preventDefault();
+
+    // 3. Pega o termo digitado, remove espaços em branco e converte para minúsculas
+    //    Isso torna a busca não sensível a maiúsculas/minúsculas
+    const termoBusca = inputBusca.value.trim().toLowerCase();
+
+    // 4. Filtra a lista 'todasAsObras' (que já temos em memória vinda da API)
+    const resultadosBusca = todasAsObras.filter(obra => {
+      const titulo = obra.titulo.toLowerCase();
+      const artista = obra.artista.toLowerCase();
+
+      // Retorna verdadeiro se o título OU o artista incluírem o termo buscado
+      return titulo.includes(termoBusca) || artista.includes(termoBusca);
+    });
+
+    // 5. Usa nossa função existente para exibir os resultados na tela
+    exibirObras(resultadosBusca);
+  });
+}
 });
