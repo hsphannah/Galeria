@@ -2,15 +2,24 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // --- LÓGICA DINÂMICA DO CATÁLOGO E API ---
 
-  // URL base da nossa API
-  const API_BASE_URL = 'http://localhost:3000/api/obras';
+  // URL da nossa API
+  const API_URL = 'http://localhost:3000/api/obras';
 
-  // Referências aos elementos da página
+  // --- Seleção de todos os elementos que vamos usar ---
   const gradeObras = document.querySelector('.grade-obras');
-  const linksFiltro = document.querySelectorAll('.menu-lateral a');
+  const linksFiltro = document.querySelectorAll('.menu-lateral a[data-filtro]');
+  const formBusca = document.querySelector('.busca-lateral');
+  const inputBusca = document.querySelector('.busca-lateral input[type="search"]');
 
-  // Função que desenha os cards na tela (não muda)
+  // Variável que vai guardar nossa lista de obras principal
+  let todasAsObras = [];
+
+  // --- Funções ---
+
+  // Função para desenhar os cards na tela
   function exibirObras(listaDeObras) {
+    if (!gradeObras) return; // Se não encontrar a grade, para a execução
+
     gradeObras.innerHTML = ''; // Limpa a grade antes de adicionar
     if (listaDeObras.length === 0) {
         gradeObras.innerHTML = '<p>Nenhuma obra encontrada para este filtro.</p>';
@@ -33,76 +42,59 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // NOVA FUNÇÃO REUTILIZÁVEL para buscar e exibir os dados
-  function buscarEExibirObras(url) {
-    gradeObras.innerHTML = '<p>Carregando obras...</p>'; // Mensagem de carregando
+  // --- Lógica Principal ---
 
-    fetch(url)
-      .then(response => response.json())
+  // Só tentamos buscar os dados se a grade de obras existir na página
+  if (gradeObras) {
+    fetch(API_URL)
+      .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro de rede ao buscar os dados.');
+        }
+        return response.json();
+      })
       .then(data => {
-        exibirObras(data); // Usa nossa função para desenhar as obras recebidas
+        // SUCESSO! Os dados chegaram do servidor.
+        todasAsObras = data; // Agora a variável 'todasAsObras' existe e tem conteúdo.
+        exibirObras(todasAsObras); // Exibimos todas as obras na tela.
+
+        // **AGORA SIM, ativamos os eventos que dependem dos dados**
+
+        // Evento para os links de filtro (categoria/artista)
+        linksFiltro.forEach(link => {
+          link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const filtro = this.dataset.filtro;
+            const valor = this.dataset.valor;
+            
+            let obrasFiltradas;
+            if (filtro === 'todos') {
+              obrasFiltradas = todasAsObras;
+            } else {
+              obrasFiltradas = todasAsObras.filter(obra => obra[filtro] === valor);
+            }
+            exibirObras(obrasFiltradas);
+          });
+        });
+
+        // Evento para o formulário de busca
+        if (formBusca && inputBusca) {
+          formBusca.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const termoBusca = inputBusca.value.trim().toLowerCase();
+
+            const resultadosBusca = todasAsObras.filter(obra => {
+              const titulo = obra.titulo.toLowerCase();
+              const artista = obra.artista.toLowerCase();
+              return titulo.includes(termoBusca) || artista.includes(termoBusca);
+            });
+            exibirObras(resultadosBusca);
+          });
+        }
       })
       .catch(error => {
-        console.error('Erro ao buscar dados da API:', error);
-        gradeObras.innerHTML = '<p>Não foi possível carregar as obras. Tente novamente mais tarde.</p>';
+        console.error('Erro ao buscar ou processar dados da API:', error);
+        gradeObras.innerHTML = '<p>Não foi possível carregar as obras. Verifique se o servidor back-end está rodando.</p>';
       });
   }
-
-  // --- EVENTOS E EXECUÇÃO ---
-
-  // 1. Ao carregar a página, busca e exibe TODAS as obras
-  buscarEExibirObras(API_BASE_URL);
-
-  // 2. Adiciona o evento de clique para CADA link de filtro
-  linksFiltro.forEach(link => {
-    link.addEventListener('click', function(event) {
-      event.preventDefault(); // Impede que a página recarregue
-
-      const filtro = this.dataset.filtro;
-      const valor = this.dataset.valor;
-      
-      let novaUrl;
-
-      // Monta a URL correta com base no filtro clicado
-      if (filtro === 'todos') {
-        novaUrl = API_BASE_URL;
-      } else {
-        // Usamos encodeURIComponent para tratar espaços e caracteres especiais com segurança
-        novaUrl = `${API_BASE_URL}?${filtro}=${encodeURIComponent(valor)}`;
-      }
-      
-      // Chama a função para buscar os dados da nova URL filtrada
-      buscarEExibirObras(novaUrl);
-    });
-  });
-  // --- LÓGICA DA BARRA DE BUSCA LATERAL ---
-
-// 1. Selecionar o formulário de busca e o campo de input
-const formBusca = document.querySelector('.busca-lateral');
-const inputBusca = document.querySelector('.busca-lateral input[type="search"]');
-
-// 2. Adicionar um "ouvinte" para o evento de 'submit' do formulário
-//    'submit' funciona tanto com o clique no botão quanto com a tecla "Enter"
-if (formBusca && inputBusca) {
-  formBusca.addEventListener('submit', function(event) {
-    // Impede o comportamento padrão do formulário (que é recarregar a página)
-    event.preventDefault();
-
-    // 3. Pega o termo digitado, remove espaços em branco e converte para minúsculas
-    //    Isso torna a busca não sensível a maiúsculas/minúsculas
-    const termoBusca = inputBusca.value.trim().toLowerCase();
-
-    // 4. Filtra a lista 'todasAsObras' (que já temos em memória vinda da API)
-    const resultadosBusca = todasAsObras.filter(obra => {
-      const titulo = obra.titulo.toLowerCase();
-      const artista = obra.artista.toLowerCase();
-
-      // Retorna verdadeiro se o título OU o artista incluírem o termo buscado
-      return titulo.includes(termoBusca) || artista.includes(termoBusca);
-    });
-
-    // 5. Usa nossa função existente para exibir os resultados na tela
-    exibirObras(resultadosBusca);
-  });
-}
 });
