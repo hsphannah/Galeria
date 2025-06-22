@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- Funções ---
 
   // Função para desenhar os cards na tela
-  function exibirObras(listaDeObras) {
+ function exibirObras(listaDeObras) {
     if (!gradeObras) return; // Se não encontrar a grade, para a execução
 
     gradeObras.innerHTML = ''; // Limpa a grade antes de adicionar
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="obra-info">
                 <h3 class="obra-titulo">${obra.titulo}</h3>
                 <p class="obra-artista">${obra.artista}</p>
-                <p class="obra-preco">R$ ${obra.preco.toFixed(2).replace('.', ',')}</p>
+                <p class="obra-preco">R$ ${parseFloat(obra.preco).toFixed(2).replace('.', ',')}</p>
             </div>
         </a>
       `;
