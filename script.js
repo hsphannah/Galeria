@@ -97,4 +97,49 @@ document.addEventListener('DOMContentLoaded', function() {
         gradeObras.innerHTML = '<p>Não foi possível carregar as obras. Verifique se o servidor back-end está rodando.</p>';
       });
   }
+  // --- LÓGICA PARA A PÁGINA DE ARTISTAS (DINÂMICA) ---
+
+// 1. Encontrar a grade de artistas na página
+const artistasGrid = document.querySelector('.artistas-grid');
+
+// 2. SÓ executa este código se a grade de artistas existir na página atual
+if (artistasGrid) {
+  // A URL da nossa API de artistas
+  const ARTISTAS_API_URL = 'http://localhost:3000/api/artistas';
+
+  // 3. Função para desenhar os cards dos artistas
+  function exibirArtistas(listaDeArtistas) {
+    artistasGrid.innerHTML = ''; // Limpa a grade antes de adicionar
+
+    listaDeArtistas.forEach(artista => {
+      // Usamos os dados que vêm do banco de dados (artista.nome, artista.bio, etc.)
+      const cardHTML = `
+        <div class="artista-card-novo">
+            <div class="artista-card-imagem-link">
+                <img src="${artista.imagem_url}" alt="${artista.nome}">
+            </div>
+            <div class="artista-card-info">
+                <h3>${artista.nome}</h3>
+                <p class="artista-card-bio">${artista.bio}</p>
+                <a href="#" class="btn-ver-obras">Ver Obras</a>
+            </div>
+        </div>
+      `;
+      artistasGrid.innerHTML += cardHTML;
+    });
+  }
+
+  // 4. Busca os dados dos artistas na nossa API e os exibe
+  artistasGrid.innerHTML = '<p>Carregando artistas...</p>';
+  fetch(ARTISTAS_API_URL)
+    .then(response => response.json())
+    .then(data => {
+      // Usa a função para desenhar os cards com os dados recebidos
+      exibirArtistas(data);
+    })
+    .catch(error => {
+      console.error('Erro ao buscar artistas da API:', error);
+      artistasGrid.innerHTML = '<p>Não foi possível carregar os artistas.</p>';
+    });
+}
 });
