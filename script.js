@@ -58,8 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         todasAsObras = data; // Agora a variável 'todasAsObras' existe e tem conteúdo.
         exibirObras(todasAsObras); // Exibimos todas as obras na tela.
 
-        // **AGORA SIM, ativamos os eventos que dependem dos dados**
-
         // Evento para os links de filtro (categoria/artista)
         linksFiltro.forEach(link => {
           link.addEventListener('click', function(event) {
@@ -121,7 +119,7 @@ if (artistasGrid) {
             <div class="artista-card-info">
                 <h3>${artista.nome}</h3>
                 <p class="artista-card-bio">${artista.bio}</p>
-                <a href="#" class="btn-ver-obras">Ver Obras</a>
+                <a href="${artista.detalhe_url}" class="btn-ver-obras">Ver Obras</a>
             </div>
         </div>
       `;
