@@ -241,4 +241,54 @@ if (formLogin) {
     }
   });
 }
+// --- LÓGICA PARA ADICIONAR AO CARRINHO (PÁGINA DE DETALHES) ---
+
+// 1. Encontrar o botão e o container da obra na página
+const btnComprar = document.querySelector('#btn-comprar-detalhe');
+const detalheContainer = document.querySelector('.detalhe-container');
+
+// 2. SÓ executa este código se o botão de comprar existir na página atual
+if (btnComprar && detalheContainer) {
+  btnComprar.addEventListener('click', async function() {
+    
+    // 3. Verifica se o utilizador está logado (procurando a sessão no localStorage)
+    const sessionData = localStorage.getItem('supabase.session');
+    
+    if (!sessionData) {
+      alert('Por favor, faça login para adicionar obras ao carrinho.');
+      window.location.href = 'login.html'; // Redireciona para a página de login
+      return;
+    }
+
+    // 4. Se estiver logado, pega as informações necessárias
+    const session = JSON.parse(sessionData);
+    const token = session.access_token; // O "crachá" do utilizador
+    const obraId = detalheContainer.dataset.obraId; // Pega o ID da obra do data-attribute
+
+    // 5. Envia a requisição para a nossa API do back-end
+    try {
+      const response = await fetch('http://localhost:3000/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Envia o "crachá" para autorização
+        },
+        body: JSON.stringify({ obra_id: obraId })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Obra adicionada ao carrinho com sucesso!');
+        // No futuro, poderíamos atualizar o ícone do carrinho aqui
+      } else {
+        // Mostra o erro que veio do nosso back-end
+        throw new Error(result.error || 'Não foi possível adicionar a obra ao carrinho.');
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar ao carrinho:', error);
+      alert(error.message);
+    }
+  });
+}
 });
