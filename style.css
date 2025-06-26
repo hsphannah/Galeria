@@ -30,7 +30,7 @@ body {
 }
 
 /* ======================================= */
-/* HEADER FINAL E UNIFICADO                */
+/* HEADER FINAL E CORRETO                  */
 /* ======================================= */
 
 /* --- 1. ESTILO PADRÃO DO HEADER (PARA TODAS AS PÁGINAS) --- */
@@ -44,7 +44,9 @@ header {
 }
 
 .header-container {
+    /* Define o container como uma grade */
     display: grid;
+    /* Cria as 3 colunas: esquerda, centro, direita */
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     width: 90%;
@@ -53,21 +55,21 @@ header {
     gap: 20px;
 }
 
-/* --- Colunas do Header --- */
+/* --- 2. INSTRUÇÕES DE POSICIONAMENTO PARA OS FILHOS --- */
 .menu-navegacao-esquerda {
-    grid-column: 1 / 2;
-    justify-self: start;
+    grid-column: 1 / 2;   /* << Coloca na coluna 1 */
+    justify-self: start;  /* Alinha à esquerda */
 }
 .logo-header {
-    grid-column: 2 / 3;
-    justify-self: center;
+    grid-column: 2 / 3;   /* << Coloca na coluna 2 */
+    justify-self: center; /* Alinha ao centro */
 }
 .user-actions {
-    grid-column: 3 / 4;
-    justify-self: end;
+    grid-column: 3 / 4;   /* << Coloca na coluna 3 */
+    justify-self: end;    /* Alinha à direita */
 }
 
-/* --- Estilo dos Links do Header (Padrão) --- */
+/* --- 3. ESTILOS DOS ELEMENTOS INTERNOS --- */
 .menu-navegacao-esquerda ul {
     margin: 0;
     padding: 0;
@@ -75,60 +77,49 @@ header {
     display: flex;
     gap: 25px;
 }
-
 header a {
     text-decoration: none;
-    color: #333;
+    color: #333; /* Cor preta padrão */
     font-weight: 500;
     transition: color 0.2s ease;
 }
-
 header a:hover {
     color: #007bff;
 }
-
 .logo-header a {
     font-size: 1.8rem;
     font-weight: bold;
 }
-
-.user-actions .action-link {
+.user-actions a {
     font-size: 1rem;
 }
 
-
-/* --- 2. EXCEÇÃO (APENAS PARA A PÁGINA INICIAL) --- */
+/* --- 4. EXCEÇÃO PARA A PÁGINA INICIAL (EFEITO FLUTUANTE) --- */
 .pagina-inicial header {
     position: absolute;
     background-color: transparent;
     border-bottom: none;
 }
-
 .pagina-inicial header a {
     color: #ffffff;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
-
 .pagina-inicial header a:hover {
     color: #e0e0e0;
 }
 
-
-/* --- 3. RESPONSIVIDADE DO HEADER --- */
+/* --- 5. RESPONSIVIDADE DO HEADER --- */
 @media (max-width: 900px) {
     .menu-navegacao-esquerda {
         display: none;
     }
-    
     .header-container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr; /* Muda para 2 colunas */
     }
-
     .logo-header {
         grid-column: 1 / 2;
         justify-self: start;
     }
-
     .user-actions {
         grid-column: 2 / 3;
         justify-self: end;
