@@ -30,10 +30,12 @@ body {
 }
 
 /* ======================================= */
-/* HEADER                                  */
+/* HEADER FINAL E UNIFICADO                */
 /* ======================================= */
+
+/* --- 1. ESTILO PADRÃO DO HEADER (PARA TODAS AS PÁGINAS) --- */
 header {
-    background-color: #ffffff;
+    background-color: #ffffff; 
     padding: 20px 0;
     border-bottom: 1px solid #e0e0e0;
     position: sticky;
@@ -51,11 +53,21 @@ header {
     gap: 20px;
 }
 
+/* --- Colunas do Header --- */
 .menu-navegacao-esquerda {
     grid-column: 1 / 2;
     justify-self: start;
 }
+.logo-header {
+    grid-column: 2 / 3;
+    justify-self: center;
+}
+.user-actions {
+    grid-column: 3 / 4;
+    justify-self: end;
+}
 
+/* --- Estilo dos Links do Header (Padrão) --- */
 .menu-navegacao-esquerda ul {
     margin: 0;
     padding: 0;
@@ -64,70 +76,69 @@ header {
     gap: 25px;
 }
 
-.menu-navegacao-esquerda a {
+header a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    font-size: 1rem;
     transition: color 0.2s ease;
 }
 
-.menu-navegacao-esquerda a:hover {
+header a:hover {
     color: #007bff;
-}
-
-.logo-header {
-    grid-column: 2 / 3;
-    justify-self: center;
 }
 
 .logo-header a {
     font-size: 1.8rem;
     font-weight: bold;
-    text-decoration: none;
-    color: #333;
-}
-
-.user-actions {
-    grid-column: 3 / 4;
-    justify-self: end;
-    display: flex;
-    gap: 20px;
 }
 
 .user-actions .action-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
+    font-size: 1rem;
 }
 
-.user-actions .action-link:hover {
-    color: #007bff;
-}
 
-/* Estilo Flutuante Apenas para a Página Inicial */
+/* --- 2. EXCEÇÃO (APENAS PARA A PÁGINA INICIAL) --- */
 .pagina-inicial header {
     position: absolute;
     background-color: transparent;
     border-bottom: none;
 }
 
-/* Esta regra afeta TODOS os links dentro do header APENAS na página inicial */
 .pagina-inicial header a {
-    color: #ffffff; /* Voltamos para o BRANCO para ser visível sobre a imagem */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Adicionamos uma sombra para ajudar na leitura */
-}
-
-/* E vamos garantir que o hover também fique claro */
-.pagina-inicial header a:hover {
-    color: #e0e0e0; /* Um cinza bem claro/branco suave para o efeito hover */
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .pagina-inicial header a:hover {
-    color: #007bff;
+    color: #e0e0e0;
 }
 
+
+/* --- 3. RESPONSIVIDADE DO HEADER --- */
+@media (max-width: 900px) {
+    .menu-navegacao-esquerda {
+        display: none;
+    }
+    
+    .header-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .logo-header {
+        grid-column: 1 / 2;
+        justify-self: start;
+    }
+
+    .user-actions {
+        grid-column: 2 / 3;
+        justify-self: end;
+    }
+}
+
+
+/* ======================================= */
 /* LAYOUT PRINCIPAL E COMPONENTES          */
+/* ======================================= */
 
 /* --- HERO VIDEO BANNER --- */
 .hero-video-container {
@@ -153,6 +164,8 @@ header {
     max-width: 1400px;
     margin: 40px auto;
 }
+
+/* ... (O resto do seu CSS que já estava correto) ... */
 
 /* --- MENU LATERAL (FILTROS) --- */
 .menu-lateral {
