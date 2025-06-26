@@ -291,32 +291,4 @@ if (btnComprar && detalheContainer) {
     }
   });
 }
-// --- LÓGICA DA PÁGINA DE BUSCA (busca.html) ---
-
-// Verifica se a URL da página atual inclui "busca.html"
-if (window.location.pathname.includes('busca.html')) {
-  
-  // Pega os parâmetros da URL
-  const parametros = new URLSearchParams(window.location.search);
-  const termoDeBusca = parametros.get('q'); // Pega o valor do parâmetro 'q' que definimos no HTML
-
-  const tituloPagina = document.querySelector('.conteudo-principal h1');
-
-  // Se um termo de busca existe, atualiza o título da página
-  if (tituloPagina && termoDeBusca) {
-    tituloPagina.textContent = `Resultados para: "${termoDeBusca}"`;
-  }
-
-  // A lógica de buscar TODAS as obras e filtrar é a mesma da busca lateral
-  // (Estamos a assumir que 'todasAsObras' e 'exibirObras' já existem no script)
-  if (termoDeBusca) {
-    const termo = termoDeBusca.trim().toLowerCase();
-    const resultados = todasAsObras.filter(obra => {
-      const titulo = obra.titulo.toLowerCase();
-      const artista = obra.artista.toLowerCase();
-      return titulo.includes(termo) || artista.includes(termo);
-    });
-    exibirObras(resultados);
-  }
-}
 });
