@@ -1,5 +1,6 @@
-/* ESTILOS GERAIS */
-
+/* ======================================= */
+/* ESTILOS GERAIS                          */
+/* ======================================= */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -27,23 +28,57 @@ body {
     border-bottom: 1px solid #dee2e6;
     padding-bottom: 20px;
 }
-/* CABECALHO */
+
+/* ======================================= */
+/* HEADER                                  */
+/* ======================================= */
 header {
     background-color: #ffffff;
     padding: 20px 0;
     border-bottom: 1px solid #e0e0e0;
-    position: sticky; 
+    position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
+    gap: 20px;
+}
+
+.menu-navegacao-esquerda {
+    grid-column: 1 / 2;
+    justify-self: start;
+}
+
+.menu-navegacao-esquerda ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu-navegacao-esquerda a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.menu-navegacao-esquerda a:hover {
+    color: #007bff;
+}
+
+.logo-header {
+    grid-column: 2 / 3;
+    justify-self: center;
 }
 
 .logo-header a {
@@ -53,36 +88,16 @@ header {
     color: #333;
 }
 
-.search-bar {
-    display: flex;
-    width: 40%;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-right: none;
-    border-radius: 5px 0 0 5px;
-}
-
-.search-bar button {
-    padding: 10px 15px;
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 0 5px 5px 0;
-}
-
 .user-actions {
+    grid-column: 3 / 4;
+    justify-self: end;
     display: flex;
     gap: 20px;
 }
 
 .user-actions .action-link {
     text-decoration: none;
-    color: #555;
+    color: #333;
     font-weight: 500;
 }
 
@@ -90,7 +105,46 @@ header {
     color: #007bff;
 }
 
-/* LAYOUT PRINCIPAL (2 COLUNAS)     */
+/* Estilo Flutuante Apenas para a Página Inicial */
+.pagina-inicial header {
+    position: absolute;
+    background-color: transparent;
+    border-bottom: none;
+}
+
+/* Esta regra afeta TODOS os links dentro do header APENAS na página inicial */
+.pagina-inicial header a {
+    color: #ffffff; /* Voltamos para o BRANCO para ser visível sobre a imagem */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Adicionamos uma sombra para ajudar na leitura */
+}
+
+/* E vamos garantir que o hover também fique claro */
+.pagina-inicial header a:hover {
+    color: #e0e0e0; /* Um cinza bem claro/branco suave para o efeito hover */
+}
+
+.pagina-inicial header a:hover {
+    color: #007bff;
+}
+
+/* LAYOUT PRINCIPAL E COMPONENTES          */
+
+/* --- HERO VIDEO BANNER --- */
+.hero-video-container {
+    width: 100%;
+    height: 50vh; 
+    overflow: hidden;
+    position: relative;
+    background-color: #333;
+}
+
+.hero-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+/* --- LAYOUT DA LOJA (2 COLUNAS) --- */
 .loja-container {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -150,6 +204,7 @@ header {
     padding: 10px;
     font-size: 0.9rem;
     outline: none;
+    min-width: 0;
 }
 
 .busca-lateral button {
@@ -193,11 +248,21 @@ header {
     box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 
+.obra-card .obra-imagem-container {
+    position: relative;
+    overflow: hidden;
+}
+
 .obra-card .obra-imagem-container img {
     width: 100%;
     height: 400px;
     object-fit: cover;
     display: block;
+    transition: transform 0.4s ease;
+}
+
+.obra-card:hover .obra-imagem-container img {
+    transform: scale(1.05);
 }
 
 .obra-card .obra-info {
@@ -294,46 +359,72 @@ header {
 .artista-card-info .btn-ver-obras:hover {
     background-color: #0056b3;
 }
-/* --- PÁGINAS (LOGIN/CADASTRO) --- */
-.form-page {
+
+/* PÁGINAS ESPECÍFICAS (FORMULÁRIOS, ETC)  */
+
+/* --- PÁGINAS DE FORMULÁRIO (LOGIN/CADASTRO) --- */
+.pagina-login-cadastro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+.coluna-imagem-login {
+    background-image: url('https://images.unsplash.com/photo-1549887552-6e628231babd?q=80&w=2070');
+    background-size: cover;
+    background-position: center;
+}
+
+.coluna-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 20px;
-    background-color: #f8f9fa;
+    padding: 40px;
 }
 
 .form-container {
     width: 100%;
-    max-width: 450px;
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 400px;
+}
+
+.logo-form {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.logo-form a {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
 }
 
 .form-container h2 {
     text-align: center;
     margin-top: 0;
     margin-bottom: 30px;
+    font-weight: 500;
 }
 
 .form-grupo {
     margin-bottom: 20px;
 }
-
 .form-grupo label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
 }
-
 .form-grupo input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-grupo input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
 .btn-form {
@@ -347,16 +438,17 @@ header {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
-
 .btn-form:hover {
     background-color: #0056b3;
 }
 
 .form-link {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 25px;
 }
+
 
 /* --- PÁGINA DO CARRINHO --- */
 .pagina-carrinho .container {
@@ -458,7 +550,6 @@ header {
     background-color: #218838;
 }
 
-
 /* --- PÁGINA DE DETALHES DA OBRA --- */
 .pagina-detalhe-obra .container {
     max-width: 1200px;
@@ -475,18 +566,15 @@ header {
     flex: 1;
     min-width: 350px;
 }
-
 .coluna-imagem-detalhe #imagem-principal {
     width: 100%;
     border: 1px solid #eee;
 }
-
 .galeria-thumbnails {
     display: flex;
     gap: 10px;
     margin-top: 10px;
 }
-
 .galeria-thumbnails .thumb {
     width: 80px;
     height: 80px;
@@ -496,42 +584,35 @@ header {
     opacity: 0.6;
     transition: opacity 0.2s ease, border-color 0.2s ease;
 }
-
 .galeria-thumbnails .thumb:hover, .galeria-thumbnails .thumb.active {
     opacity: 1;
     border-color: #007bff;
 }
-
 .coluna-info-detalhe {
     flex: 1;
     min-width: 350px;
 }
-
 .detalhe-artista a {
     text-decoration: none;
     color: #555;
     font-weight: 500;
 }
-
 .detalhe-titulo {
     font-size: 2.5rem;
     margin: 10px 0;
 }
-
 .detalhe-preco {
     font-size: 2rem;
     font-weight: bold;
     color: #007bff;
     margin-bottom: 25px;
 }
-
 .detalhe-descricao ul {
     list-style: none;
     padding: 0;
     color: #555;
     line-height: 1.6;
 }
-
 .btn-comprar {
     width: 100%;
     padding: 20px;
@@ -545,29 +626,24 @@ header {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 .btn-comprar:hover {
     background-color: #218838;
 }
-
 .frete-calculo {
     margin-top: 30px;
     background-color: #f8f9fa;
     padding: 20px;
     border-radius: 5px;
 }
-
 .frete-form {
     display: flex;
 }
-
 .frete-form input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-right: none;
 }
-
 .frete-form button {
     padding: 10px 15px;
     border: 1px solid #555;
@@ -581,7 +657,6 @@ header {
     background-color: #f8f9fa;
     padding: 60px 0;
 }
-
 .artista-hero-content {
     display: flex;
     align-items: center;
@@ -589,7 +664,6 @@ header {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .artista-hero-imagem img {
     width: 200px;
     height: 200px;
@@ -597,18 +671,15 @@ header {
     object-fit: cover;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-
 .artista-hero-texto h1 {
     font-size: 3rem;
     margin: 0 0 10px 0;
 }
-
 .artista-hero-local {
     font-size: 1.1rem;
     color: #6c757d;
     margin: 0 0 20px 0;
 }
-
 .artista-hero-bio {
     font-size: 1rem;
     line-height: 1.6;
@@ -623,26 +694,22 @@ header {
     gap: 50px;
     margin-top: 40px;
 }
-
 .sobre-coluna-imagem,
 .sobre-coluna-texto {
     flex: 1;
     min-width: 320px;
 }
-
 .sobre-coluna-imagem img {
     width: 100%;
     height: auto;
     display: block;
 }
-
 .sobre-coluna-texto h2 {
     font-size: 2rem;
     font-weight: 500;
     margin-top: 0;
     margin-bottom: 20px;
 }
-
 .sobre-coluna-texto p {
     font-size: 1.1rem;
     line-height: 1.8;
@@ -650,71 +717,8 @@ header {
     margin-bottom: 20px;
 }
 
-/* --- PÁGINA CONTATO --- */
-.contato-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin-top: 40px;
-}
+/* RODAPÉ                                  */
 
-.contato-coluna-info,
-.contato-coluna-form {
-    flex: 1;
-    min-width: 320px;
-}
-
-.contato-coluna-info h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-top: 0;
-}
-
-.contato-coluna-info p {
-    line-height: 1.7;
-    color: #333;
-}
-
-.lista-contato {
-    list-style: none;
-    padding: 0;
-    margin: 30px 0;
-}
-
-.lista-contato li {
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.lista-contato strong {
-    color: #1c1c1c;
-}
-
-.form-grupo {
-    margin-bottom: 20px;
-}
-
-.form-grupo label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-grupo input,
-.form-grupo textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
-}
-
-.form-grupo textarea {
-    resize: vertical;
-}
-
-/* --- RODAPÉ --- */
 footer {
     background-color: #2c3e50;
     color: #ecf0f1;
@@ -792,14 +796,39 @@ footer {
 .footer-bottom-bar p {
     margin: 0;
 }
-/* ESTILOS RESPONSIVOS            */
+
+
+/* ======================================= */
+/* ESTILOS RESPONSIVOS (AGRUPADOS)         */
+/* ======================================= */
 
 @media (max-width: 900px) {
-    .search-bar {
+    .menu-navegacao-esquerda {
         display: none;
+    }
+    .header-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    .logo-header {
+        grid-column: 1 / 2;
+        justify-self: start;
+    }
+    .user-actions {
+        grid-column: 2 / 3;
+        justify-self: end;
     }
     .carrinho-container {
         flex-direction: column;
+    }
+}
+
+
+@media (max-width: 850px) {
+    .coluna-imagem-login {
+        display: none;
+    }
+    .pagina-login-cadastro {
+        grid-template-columns: 1fr;
     }
 }
 

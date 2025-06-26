@@ -6,23 +6,29 @@
     <title>Sua Galeria de Arte</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
+<body class="pagina-inicial">
+   <header>
     <div class="header-container">
+        <nav class="menu-navegacao-esquerda">
+            <ul>
+                <li><a href="sobre.html">Quem Somos</a></li>
+                <li><a href="artistas.html">Artistas</a></li>
+            </ul>
+        </nav>
+
         <div class="logo-header">
             <a href="index.html">Sua Galeria</a>
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar obras, artistas...">
-            <button>Buscar</button>
-        </div>
+
         <div class="user-actions">
             <a href="login.html" class="action-link">Login</a>
             <a href="carrinho.html" class="action-link">Carrinho (0)</a>
         </div>
     </div>
 </header>
-
+<section class="hero-video-container">
+    <video src="videos/galeria-inicio.mp4" autoplay loop muted playsinline></video>
+</section>
     <div class="loja-container">
         <aside class="menu-lateral">
     <form class="busca-lateral">
@@ -76,7 +82,7 @@
             <ul>
                 <li><a href="index.html">Catálogo</a></li>
                 <li><a href="artistas.html">Artistas</a></li>
-                <li><a href="sobre.html">Sobre Nós</a></li>
+                <li><a href="sobre.html">Sobre nós</a></li>
             </ul>
         </div>
 
