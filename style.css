@@ -806,7 +806,7 @@ footer {
         height: 100vh; /* Ocupa 100% da altura da tela */
         background-color: #fdfdfd;
         z-index: 1000; /* Garante que o menu fique acima de todo o conteúdo */
-        padding: 20px;
+        padding: 45px 20px;
         box-shadow: 4px 0px 15px rgba(0,0,0,0.2);
         overflow-y: auto; /* Adiciona scroll se o conteúdo do menu for muito grande */
 
