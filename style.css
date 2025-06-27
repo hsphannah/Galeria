@@ -35,96 +35,81 @@ body {
 
 /* --- 1. ESTILO PADRÃO DO HEADER (PARA TODAS AS PÁGINAS) --- */
 header {
-    background-color: #ffffff; 
-    padding: 20px 0;
-    border-bottom: 1px solid #e0e0e0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            padding: 20px 0;
+        }
 
-.header-container {
-    /* Define o container como uma grade */
-    display: grid;
-    /* Cria as 3 colunas: esquerda, centro, direita */
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    gap: 20px;
-}
+        .header-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 20px;
+        }
 
-/* --- 2. INSTRUÇÕES DE POSICIONAMENTO PARA OS FILHOS --- */
-.menu-navegacao-esquerda {
-    grid-column: 1 / 2;   /* << Coloca na coluna 1 */
-    justify-self: start;  /* Alinha à esquerda */
-}
-.logo-header {
-    grid-column: 2 / 3;   /* << Coloca na coluna 2 */
-    justify-self: center; /* Alinha ao centro */
-}
-.user-actions {
-    grid-column: 3 / 4;   /* << Coloca na coluna 3 */
-    justify-self: end;    /* Alinha à direita */
-}
+        /* Colunas do Header */
+        .menu-navegacao-esquerda {
+            grid-column: 1 / 2;
+            justify-self: start;
+        }
+        .logo-header {
+            grid-column: 2 / 3;
+            justify-self: center;
+        }
+        .user-actions {
+            grid-column: 3 / 4;
+            justify-self: end;
+        }
 
-/* --- 3. ESTILOS DOS ELEMENTOS INTERNOS --- */
-.menu-navegacao-esquerda ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    gap: 25px;
-}
-header a {
-    text-decoration: none;
-    color: #333; /* Cor preta padrão */
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-header a:hover {
-    color: #007bff;
-}
-.logo-header a {
-    font-size: 1.8rem;
-    font-weight: bold;
-}
-.user-actions a {
-    font-size: 1rem;
-}
+        /* Estilo dos Links do Header */
+        .menu-navegacao-esquerda ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        header a {
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        header a:hover {
+            color: #e0e0e0;
+        }
+        .logo-header a {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .user-actions a {
+            font-size: 1rem;
+        }
 
-/* --- 4. EXCEÇÃO PARA A PÁGINA INICIAL (EFEITO FLUTUANTE) --- */
-.pagina-inicial header {
-    position: absolute;
-    background-color: transparent;
-    border-bottom: none;
-}
-.pagina-inicial header a {
-    color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-.pagina-inicial header a:hover {
-    color: #e0e0e0;
-}
-
-/* --- 5. RESPONSIVIDADE DO HEADER --- */
-@media (max-width: 900px) {
-    .menu-navegacao-esquerda {
-        display: none;
-    }
-    .header-container {
-        grid-template-columns: 1fr 1fr; /* Muda para 2 colunas */
-    }
-    .logo-header {
-        grid-column: 1 / 2;
-        justify-self: start;
-    }
-    .user-actions {
-        grid-column: 2 / 3;
-        justify-self: end;
-    }
-}
+        /* Responsividade do Header */
+        @media (max-width: 900px) {
+            .menu-navegacao-esquerda {
+                display: none;
+            }
+            .header-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .logo-header {
+                grid-column: 1 / 2;
+                justify-self: start;
+            }
+            .user-actions {
+                grid-column: 2 / 3;
+                justify-self: end;
+            }
+        }
 
 
 /* ======================================= */
