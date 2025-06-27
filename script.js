@@ -295,4 +295,33 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  /* =============================================== */
+/* --- LÓGICA DO MENU HAMBÚRGUER ---             */
+/* =============================================== */
+
+// Seleciona os elementos que acabamos de criar no HTML
+const btnAbrir = document.querySelector('#btn-abrir-menu');
+const btnFechar = document.querySelector('#btn-fechar-menu');
+const menuLateral = document.querySelector('.menu-lateral');
+const overlay = document.querySelector('#overlay-menu');
+
+// Função para abrir o menu
+function abrirMenu() {
+    menuLateral.classList.add('ativo');
+    overlay.classList.add('ativo');
+}
+
+// Função para fechar o menu
+function fecharMenu() {
+    menuLateral.classList.remove('ativo');
+    overlay.classList.remove('ativo');
+}
+
+// Adiciona os "ouvintes" de evento aos botões e ao overlay
+// Só adiciona se os botões existirem na página
+if (btnAbrir && menuLateral && overlay && btnFechar) {
+    btnAbrir.addEventListener('click', abrirMenu);
+    btnFechar.addEventListener('click', fecharMenu);
+    overlay.addEventListener('click', fecharMenu);
+}
 });

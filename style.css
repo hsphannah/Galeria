@@ -768,6 +768,83 @@ footer {
 .footer-bottom-bar p {
     margin: 0;
 }
+/* =============================================== */
+/* --- ESTILOS PARA MENU HAMBÚRGUER (MOBILE) --- */
+/* =============================================== */
+
+/* Por padrão, o botão de abrir o menu e o overlay ficam escondidos em telas grandes */
+.btn-abrir-menu,
+.btn-fechar-menu,
+.overlay-menu {
+    display: none;
+}
+
+
+/* Estilos que serão aplicados em telas com largura máxima de 768px */
+@media (max-width: 768px) {
+    /* --- Estilo do Botão Hambúrguer --- */
+    .btn-abrir-menu {
+        display: block; /* Faz o botão aparecer */
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 20px; /* Espaço entre o botão e o título "Obras em Destaque" */
+    }
+
+    /* --- Estilo do Menu Lateral no Mobile --- */
+    .menu-lateral {
+        /* Posição e Aparência */
+        position: fixed; /* Fica fixo na tela mesmo com o scroll */
+        top: 0;
+        left: 0;
+        width: 280px; /* Largura do menu aberto */
+        height: 100vh; /* Ocupa 100% da altura da tela */
+        background-color: #fdfdfd;
+        z-index: 1000; /* Garante que o menu fique acima de todo o conteúdo */
+        padding: 20px;
+        box-shadow: 4px 0px 15px rgba(0,0,0,0.2);
+        overflow-y: auto; /* Adiciona scroll se o conteúdo do menu for muito grande */
+
+        /* Animação de Entrada/Saída */
+        transform: translateX(-100%); /* Começa escondido, totalmente para a esquerda */
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Classe que será adicionada via JS para mostrar o menu */
+    .menu-lateral.ativo {
+        transform: translateX(0); /* Move o menu para a posição visível */
+    }
+
+    /* --- Estilo do Botão de Fechar (o "X") --- */
+    .btn-fechar-menu {
+        display: block; /* Faz o botão aparecer */
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #333;
+        cursor: pointer;
+    }
+
+    /* --- Estilo do Overlay (fundo escurecido) --- */
+    .overlay-menu.ativo {
+        display: block; /* Faz o overlay aparecer */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999; /* Fica abaixo do menu, mas acima do resto do site */
+    }
+}
 
 
 /* ======================================= */
