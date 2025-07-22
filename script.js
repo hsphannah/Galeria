@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // <<< MUDANÇA PRINCIPAL AQUI >>>
   // URL base da nossa API online na Render. Todas as chamadas usarão esta variável.
-  const BASE_API_URL = 'https://galeria-backend-qa18.onrender.com';
+  const BASE_API_URL = 'https://galeria-utk7.onrender.com';
 
 
   // --- Seleção de todos os elementos que vamos usar ---
